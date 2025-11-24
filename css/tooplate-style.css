@@ -11,6 +11,7 @@ https://www.tooplate.com/view/2115-Lavkush
 body {
   font-family: "Maven Pro", sans-serif;
   padding-top: 70px;
+  background: #ffffff;
 }
 
 .full-screen {
@@ -66,9 +67,10 @@ h1 {
 }
 
 h2 {
-  color: #353535;
+  color: #212121;
   font-size: 2.4em;
   font-weight: bold;
+  letter-spacing: -0.5px;
 }
 
 h3 {
@@ -320,7 +322,8 @@ b, strong {
 
 .timeline-wrapper {
   position: relative;
-  padding: 22px 0;
+  padding: 28px 0;
+  margin-bottom: 15px;
 }
 .timeline-wrapper:last-child:before {
   height: 0;
@@ -354,8 +357,64 @@ b, strong {
 .timeline-info {
   display: inline-block;
   vertical-align: top;
-  max-width: 432px;
+  max-width: 450px;
   margin-left: 6em;
+  padding-right: 20px;
+}
+.timeline-info h3 {
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+.timeline-info h3 span {
+  color: #212121;
+  font-size: 1.2em;
+}
+.timeline-info h3 small {
+  color: #6C63FF;
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-left: 10px;
+}
+.timeline-info h5 {
+  margin-top: 20px;
+  margin-bottom: 12px;
+  font-size: 1.05em;
+  padding-top: 5px;
+  color: #353535;
+}
+.timeline-info h5.text-primary {
+  color: #6C63FF;
+}
+.timeline-info ul {
+  margin-bottom: 18px;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+.timeline-info .mb-3 ul {
+  margin-bottom: 15px;
+}
+.timeline-info ul li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+  color: #5b5b5b;
+}
+.timeline-info ul li a {
+  color: #6C63FF;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.timeline-info ul li a:hover {
+  color: #474559;
+  text-decoration: underline;
+}
+.timeline-info .mb-3 {
+  margin-bottom: 25px !important;
+}
+.timeline-info .mb-3:last-child {
+  margin-bottom: 0 !important;
 }
 .timeline-info small {
   color: #474559;
@@ -446,13 +505,13 @@ b, strong {
 }
 
 .contact-info {
-  background: #474559;
+  background: #ffffff;
   border-radius: 0 0 3px 3px;
   position: relative;
   bottom: 8px;
 }
 .contact-info p, .contact-info a {
-  color: #f7f3f3;
+  color: #5b5b5b;
 }
 
 .social-links .uil .bi {
@@ -567,4 +626,107 @@ b, strong {
     display: inline-block;
     vertical-align: top;
   }
+}
+
+/* Modern Simple Spacing */
+.resume {
+  padding: 80px 0;
+  background: #ffffff;
+}
+.resume h2 {
+  margin-bottom: 45px;
+  font-size: 2.2em;
+  color: #212121;
+  position: relative;
+  padding-bottom: 15px;
+}
+.resume h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: #6C63FF;
+  border-radius: 2px;
+}
+.resume .col-lg-6 {
+  padding: 0 25px;
+}
+
+.skills {
+  padding: 80px 0;
+  background: #ffffff;
+}
+.skills h2 {
+  margin-bottom: 50px;
+  font-size: 2.2em;
+  color: #212121;
+  position: relative;
+  padding-bottom: 15px;
+}
+.skills h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #6C63FF;
+  border-radius: 2px;
+}
+.skills .mb-4 {
+  margin-bottom: 30px !important;
+}
+.skills h4 {
+  margin-bottom: 18px;
+  color: #353535;
+  font-size: 1.15em;
+}
+.skills ul li {
+  padding: 8px 0;
+  color: #5b5b5b;
+}
+
+.certifications {
+  padding: 80px 0;
+  background: #ffffff;
+}
+.certifications h2 {
+  margin-bottom: 50px;
+  font-size: 2.2em;
+  color: #212121;
+  position: relative;
+  padding-bottom: 15px;
+}
+.certifications h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #6C63FF;
+  border-radius: 2px;
+}
+.certification-item {
+  padding: 25px !important;
+  margin-bottom: 25px;
+  height: 100%;
+}
+.certification-item h4 {
+  color: #212121;
+  font-size: 1.15em;
+}
+
+.about-text ul li {
+  padding: 10px 0;
+  color: #5b5b5b;
+  line-height: 1.8;
+}
+.about-text ul li i {
+  margin-right: 8px;
+  color: #6C63FF;
 }
