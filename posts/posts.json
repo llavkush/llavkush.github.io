@@ -1,8 +1,14 @@
 [
   {
+    "slug": "pm2",
+    "title": "PM2: The Tool That Quietly Solved Multiple Problems for Me",
+    "date": "2026-06-02",
+    "tags": ["devops", "pm2", "nodejs", "python"]
+  },
+  {
     "slug": "welcome",
     "title": "Welcome — a new home for my notes & case studies",
-    "date": "2026-06-02",
+    "date": "2026-05-28",
     "tags": ["meta"]
   }
 ]

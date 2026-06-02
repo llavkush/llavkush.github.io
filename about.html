@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About · Lavkush</title>
-  <meta name="description" content="About Lavkush — experience, education and how to get in touch.">
+  <title>About · Lavkush Gupta</title>
+  <meta name="description" content="About Lavkush Gupta — Data Scientist & ML Engineer. Experience, skills, certifications, education and contact.">
   <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
+  <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"charcoal":"red-graphite"))}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,19 +17,21 @@
       <a href="projects.html">Projects</a>
       <a href="about.html">About</a>
       <a href="write.html">Write</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+      <select class="theme-select" onchange="setTheme(this.value)" aria-label="Theme"></select>
     </nav>
   </header>
 
   <main>
     <h1>About</h1>
     <p>
-      Early-career Data Scientist with an MSc in Computer Science (Data Science).
-      I work across NLP, image processing/generation and applied deep learning —
-      from data cleaning to modeling to shipping. Based in Mumbai.
+      <strong>Data Scientist &amp; ML Engineer</strong> with 3+ years building
+      production ML systems — deep learning (PyTorch, TensorFlow, YOLOv8, computer
+      vision), end-to-end MLOps, and statistical analysis. I led the ML work on the
+      patent-pending <strong>Super-GRT</strong> (Grain Recognition Technology).
+      Notable impact: 40% cost reduction and 35% accuracy improvement. Based in Mumbai.
     </p>
     <div class="btn-row">
-      <a class="btn btn-primary" href="images/assets/Lavkush_Ramchandra Gupta_Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+      <a class="btn btn-primary" href="Lavkush-Gupta-FlowCV-Resume-20250930.pdf" target="_blank" rel="noopener">Download résumé</a>
       <a class="btn" href="mailto:lavkushsg@gmail.com">Email</a>
       <a class="btn" href="https://www.linkedin.com/in/lavkushsg" target="_blank" rel="noopener">LinkedIn</a>
     </div>
@@ -38,40 +41,80 @@
     <h2>Experience</h2>
 
     <div class="entry">
-      <h3>Technology Intern — SuperZop <small>· 2022</small></h3>
-      <div class="where">Computer vision · OpenCV · Flask</div>
+      <h3>Machine Learning Engineer — Khetika (SuperZop)</h3>
+      <div class="where">Feb 2023 – Present</div>
       <ul>
-        <li>Built a color-correction model to recover the true colors of objects using OpenCV.</li>
-        <li>Built a perspective-correction app for bird's-eye views, boosting object detection &amp; dimension-measurement accuracy by ~5%.</li>
-        <li>Created a Flask API for ingesting and processing multiple images.</li>
+        <li><strong>Patent — Super-GRT (Grain Recognition Technology):</strong> led the complete ML development for a patent-pending AI quality-assessment system — deep-learning grain classification (PyTorch/TensorFlow) and color-calibration algorithms (CV + statistics). Cut quality assessment from hours to minutes. <a href="https://www.linkedin.com/feed/update/urn:li:activity:7294233843597733888/" target="_blank" rel="noopener">Patent announcement →</a></li>
+        <li><strong>ML model development:</strong> object detection, segmentation and classification with PyTorch, TensorFlow, YOLOv8 and Detectron2; data augmentation, cross-validation and A/B testing over terabytes of image data.</li>
+        <li><strong>Data pipelines &amp; analytics:</strong> automated ML pipelines (Python, SQL, Pandas) and Power BI dashboards — 80% reduction in reporting delays.</li>
+        <li><strong>Document-analysis ML:</strong> OCR/CV verification and statistical fraud detection — 80% faster onboarding, thousands of documents processed daily.</li>
+        <li><strong>Model optimization:</strong> quantization, pruning and ONNX conversion deployed on edge (TensorRT, Jetson Nano) — 30% latency reduction at 95%+ accuracy.</li>
+        <li><strong>MLOps:</strong> MLflow, Docker and GitHub Actions pipelines for versioning, testing and retraining — 60% faster deployment, 40% cost reduction.</li>
+        <li><strong>Edge ML:</strong> YOLOv8/Detectron2 on Jetson Nano at 24–28 FPS — 35% accuracy improvement on automated quality checks.</li>
+        <li><strong>Hackathon — AI Analytics Platform (Best AI automation tool):</strong> traceability system with OpenAI GPT &amp; Gemini integration and statistical analytics dashboards.</li>
       </ul>
     </div>
 
     <div class="entry">
-      <h3>Deep Learning Intern — Helppr.ai <small>· 2021</small></h3>
-      <div class="where">NLP · GANs · Transfer learning</div>
+      <h3>Data Science / Technology Intern — Khetika (SuperZop)</h3>
+      <div class="where">Jul 2022 – Jan 2023</div>
       <ul>
-        <li>Built a DistilBERT text-classification model across 11 UPSC subjects (Science, Geography, Economics, History, …).</li>
-        <li>Built an SRGAN-based image super-resolution model to reconstruct high-res images from low-res inputs.</li>
-        <li>Fine-tuned pre-trained models on custom datasets to 95–98% accuracy, with error analysis.</li>
-        <li>Helped ship ahead of deadline, improving accuracy by ~18% over previous models.</li>
+        <li><strong>Color-correction ML:</strong> CV model for color calibration (color-space transforms, white-balance correction) feeding quality-assessment pipelines.</li>
+        <li><strong>Computer vision:</strong> perspective-correction system (homography, geometric transforms) and statistical object localization for precise dimension measurement.</li>
+        <li><strong>Pipeline optimization:</strong> enhanced object-detection pipelines with statistical A/B testing — 5% accuracy improvement, fewer false positives.</li>
       </ul>
     </div>
+
+    <h2>Skills &amp; technologies</h2>
+
+    <div class="entry">
+      <h3>Programming &amp; data</h3>
+      <p>Python (advanced — ML, stats, data science), SQL (advanced — analysis, complex queries, ETL), R (statistical analysis, basic).</p>
+    </div>
+    <div class="entry">
+      <h3>ML &amp; computer vision</h3>
+      <p>PyTorch, TensorFlow, Keras; object detection (YOLOv5/v8, Detectron2); optimization (ONNX, TensorRT, DeepStream SDK); classical ML (scikit-learn, XGBoost); OpenCV, PIL, image processing.</p>
+    </div>
+    <div class="entry">
+      <h3>NLP &amp; generative AI</h3>
+      <p>Transformers (DistilBERT, BERT, fine-tuning); LLM integration (OpenAI GPT, Google Gemini); RASA, NLTK, spaCy; tokenization, embeddings, text classification.</p>
+    </div>
+    <div class="entry">
+      <h3>Deployment &amp; MLOps</h3>
+      <p>Docker &amp; Docker Compose, Kubernetes; GitHub Actions CI/CD; MLflow (experiment tracking, model registry); FastAPI, Flask, REST APIs; Streamlit, Dash; Azure ML Studio, GCP AI Platform.</p>
+    </div>
+    <div class="entry">
+      <h3>Cloud &amp; infrastructure</h3>
+      <p>Microsoft Azure (VM, Blob Storage, ML Studio); Google Cloud (Compute Engine, Storage, AI Platform); AWS (EC2, S3 — basic); VM management, storage, auto-scaling.</p>
+    </div>
+    <div class="entry">
+      <h3>Data &amp; visualization</h3>
+      <p>Pandas, NumPy, data cleaning; MySQL, PostgreSQL; MongoDB; Power BI, Matplotlib, Seaborn; ETL pipeline development.</p>
+    </div>
+    <div class="entry">
+      <h3>Statistical analysis &amp; research</h3>
+      <p>Hypothesis testing, A/B testing, statistical inference; experimental design, cross-validation, model evaluation; web scraping (Selenium, BeautifulSoup); research methodology; edge ML (NVIDIA Jetson Nano).</p>
+    </div>
+
+    <h2>Certifications</h2>
+    <ul>
+      <li>AWS Practical Data Science Specialization</li>
+      <li>Deep Learning Specialization</li>
+      <li>Machine Learning Engineering for Production (MLOps) Specialization</li>
+      <li>Machine Learning</li>
+      <li>Probability and Statistics: To p or not to p?</li>
+    </ul>
 
     <h2>Education</h2>
-
     <div class="entry">
-      <h3>MSc, Computer Science (Data Science) <small>· 2021</small></h3>
+      <h3>MSc, Computer Science (Data Science)</h3>
       <div class="where">University of Mumbai</div>
-      <p>Python, statistics, data analysis &amp; visualization, AI/ML, SQL &amp; analytics, database technology, data modeling, research methodology.</p>
+      <p>Statistics, data analysis &amp; visualization, AI &amp; ML, SQL &amp; analytics, data modeling, research methodology. Thesis: computer vision &amp; deep learning applications.</p>
     </div>
     <div class="entry">
-      <h3>MSc, Physics <small>· 2020</small></h3>
-      <div class="where">NES Ratnam College of Arts, Science and Commerce</div>
-    </div>
-    <div class="entry">
-      <h3>BSc, Physics <small>· 2017</small></h3>
-      <div class="where">R. J. College</div>
+      <h3>MSc, Physics</h3>
+      <div class="where">NES Ratnam College (University of Mumbai)</div>
+      <p>Foundation in mathematical modeling and statistical analysis, applied to ML problem-solving.</p>
     </div>
 
     <hr>
@@ -87,7 +130,7 @@
   </main>
 
   <footer>
-    <span>© <span id="yr"></span> Lavkush</span>
+    <span>© <span id="yr"></span> Lavkush Gupta</span>
     <span><a href="index.html">Home</a></span>
   </footer>
 

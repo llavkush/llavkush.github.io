@@ -2,27 +2,49 @@
 (function () {
   "use strict";
 
-  /* ----- Theme toggle (light / dark, persisted) ----- */
+  /* ----- Themes (Bear-style named palettes) ----- */
+  var THEMES = [
+    { id: "red-graphite",    name: "Red Graphite" },
+    { id: "charcoal",        name: "Charcoal" },
+    { id: "solarized-light", name: "Solarized Light" },
+    { id: "solarized-dark",  name: "Solarized Dark" },
+    { id: "dracula",         name: "Dracula" },
+    { id: "gotham",          name: "Gotham" }
+  ];
   var root = document.documentElement;
-  var saved = localStorage.getItem("theme");
-  if (saved) root.setAttribute("data-theme", saved);
 
+  function prefersDark() {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
   function currentTheme() {
-    var t = root.getAttribute("data-theme");
-    if (t) return t;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return localStorage.getItem("theme") || (prefersDark() ? "charcoal" : "red-graphite");
   }
 
-  window.toggleTheme = function () {
-    var next = currentTheme() === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
-    paintToggle();
+  // apply ASAP to avoid a flash
+  root.setAttribute("data-theme", currentTheme());
+
+  window.setTheme = function (id) {
+    root.setAttribute("data-theme", id);
+    localStorage.setItem("theme", id);
+    syncPickers();
   };
 
-  function paintToggle() {
-    var btn = document.querySelector(".theme-toggle");
-    if (btn) btn.textContent = currentTheme() === "dark" ? "☀" : "☾";
+  function buildPickers() {
+    var cur = currentTheme();
+    document.querySelectorAll(".theme-select").forEach(function (sel) {
+      if (!sel.options.length) {
+        THEMES.forEach(function (t) {
+          var o = document.createElement("option");
+          o.value = t.id; o.textContent = t.name;
+          sel.appendChild(o);
+        });
+      }
+      sel.value = cur;
+    });
+  }
+  function syncPickers() {
+    var cur = currentTheme();
+    document.querySelectorAll(".theme-select").forEach(function (sel) { sel.value = cur; });
   }
 
   /* ----- Date helper ----- */
@@ -101,5 +123,5 @@
     });
   }
 
-  document.addEventListener("DOMContentLoaded", paintToggle);
+  document.addEventListener("DOMContentLoaded", buildPickers);
 })();

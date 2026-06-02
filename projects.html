@@ -6,6 +6,7 @@
   <title>Projects · Lavkush</title>
   <meta name="description" content="Data science and machine learning projects by Lavkush.">
   <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
+  <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"charcoal":"red-graphite"))}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +17,7 @@
       <a href="projects.html">Projects</a>
       <a href="about.html">About</a>
       <a href="write.html">Write</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+      <select class="theme-select" onchange="setTheme(this.value)" aria-label="Theme"></select>
     </nav>
   </header>
 

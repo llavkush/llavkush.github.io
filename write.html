@@ -6,6 +6,7 @@
   <title>Write · Lavkush</title>
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
+  <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"charcoal":"red-graphite"))}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +17,7 @@
       <a href="projects.html">Projects</a>
       <a href="about.html">About</a>
       <a href="write.html">Write</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+      <select class="theme-select" onchange="setTheme(this.value)" aria-label="Theme"></select>
     </nav>
   </header>
 
@@ -25,6 +26,8 @@
     <p class="muted">
       Type, preview, publish. Publishing commits a markdown file + updates the
       blog index directly on GitHub. Your token is stored only in this browser.
+      New to the format? See the
+      <a href="https://github.com/llavkush/llavkush.github.io/blob/Master/posts/STYLE-GUIDE.md" target="_blank" rel="noopener">writing &amp; formatting guide</a>.
     </p>
 
     <details style="margin-bottom:18px">

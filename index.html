@@ -8,6 +8,7 @@
   <meta name="author" content="Lavkush Gupta">
   <meta name="keywords" content="Data Scientist, Machine Learning Engineer, Computer Vision, MLOps, Deep Learning, PyTorch, TensorFlow, YOLOv8, Super-GRT">
   <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
+  <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"charcoal":"red-graphite"))}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,27 +19,80 @@
       <a href="projects.html">Projects</a>
       <a href="about.html">About</a>
       <a href="write.html">Write</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+      <select class="theme-select" onchange="setTheme(this.value)" aria-label="Theme"></select>
     </nav>
   </header>
 
   <main>
-    <section class="intro">
-      <h1>Hey, I'm Lavkush 👋</h1>
-      <p class="tagline">Data Scientist &amp; ML Engineer — computer vision, NLP &amp; MLOps.</p>
-      <p>
-        I have 3+ years building production ML systems end to end — from data
-        pipelines and modeling to deployment on the edge. I led the ML work on
-        the patent-pending <strong>Super-GRT</strong> (Grain Recognition Technology),
-        and along the way shipped wins like a 40% cost reduction and 35% accuracy
-        improvement. I work mostly in PyTorch/TensorFlow, computer vision (YOLOv8,
-        Detectron2), and the MLOps glue that keeps it all running.
-      </p>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="Lavkush-Gupta-FlowCV-Resume-20250930.pdf" target="_blank" rel="noopener">Résumé</a>
-        <a class="btn" href="https://www.linkedin.com/in/lavkushsg" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>
+    <section class="hero">
+      <div class="avatar">L</div>
+      <div class="hero-text">
+        <h1>Lavkush Gupta</h1>
+        <p class="tagline">Data Scientist &amp; ML Engineer — computer vision, NLP &amp; MLOps.</p>
       </div>
+    </section>
+
+    <p>
+      I have 3+ years building production ML systems end to end — from data
+      pipelines and modeling to deployment on the edge. I led the ML work on the
+      patent-pending <strong>Super-GRT</strong> (Grain Recognition Technology), and
+      along the way shipped wins like a 40% cost reduction and 35% accuracy gain.
+      Mostly PyTorch/TensorFlow, computer vision (YOLOv8, Detectron2), and the
+      MLOps glue that keeps it running.
+    </p>
+
+    <div class="btn-row">
+      <a class="btn btn-primary" href="Lavkush-Gupta-FlowCV-Resume-20250930.pdf" target="_blank" rel="noopener">Résumé</a>
+      <a class="btn" href="https://www.linkedin.com/in/lavkushsg" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="mailto:lavkushsg@gmail.com">Email</a>
+    </div>
+
+    <hr>
+
+    <section>
+      <h2>Now</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Super-GRT</h3>
+          <p>Patent-pending grain-recognition tech — quality assessment from hours to minutes.</p>
+        </div>
+        <div class="card">
+          <h3>Edge ML</h3>
+          <p>YOLOv8 / Detectron2 on Jetson Nano at 24–28 FPS for real-time quality checks.</p>
+        </div>
+        <div class="card">
+          <h3>MLOps pipelines</h3>
+          <p>MLflow · Docker · GitHub Actions — automated versioning, testing &amp; retraining.</p>
+        </div>
+        <div class="card">
+          <h3>Writing</h3>
+          <p>Turning the above into <a href="blog.html">case studies &amp; notes</a> as I go.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>The arc</h2>
+      <ul class="arc">
+        <li><span class="yr">2023→</span><span>ML Engineer, Khetika (SuperZop) — led Super-GRT, edge ML &amp; MLOps</span></li>
+        <li><span class="yr">2022</span><span>Data Science Intern, Khetika — computer vision &amp; color correction</span></li>
+        <li><span class="yr">2021</span><span>MSc, Computer Science (Data Science), University of Mumbai</span></li>
+      </ul>
+      <p class="muted" style="margin-top:.6em"><a href="about.html">Full story, skills &amp; certifications →</a></p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Selected work</h2>
+      <p>
+        A gallery of data-science &amp; ML projects lives in my
+        <a href="https://llavkush.github.io/Data-Science-Portfolio/" target="_blank" rel="noopener">project portfolio</a>,
+        with code on <a href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>.
+      </p>
     </section>
 
     <hr>
