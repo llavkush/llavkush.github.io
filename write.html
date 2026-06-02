@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Write · Lavkush</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a class="site-title" href="index.html">Lavkush</a>
+    <nav>
+      <a href="blog.html">Blog</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="write.html">Write</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Write a post</h1>
+    <p class="muted">
+      Type, preview, publish. Publishing commits a markdown file + updates the
+      blog index directly on GitHub. Your token is stored only in this browser.
+    </p>
+
+    <details style="margin-bottom:18px">
+      <summary style="cursor:pointer;font-weight:600">GitHub token (set once) &amp; how it works</summary>
+      <p style="margin-top:10px">
+        Create a <b>fine-grained personal access token</b> at
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings → tokens</a>,
+        scoped to the <code>llavkush.github.io</code> repo with
+        <b>Contents: Read and write</b>. Paste it below — it lives in your
+        browser's localStorage and is sent only to api.github.com.
+      </p>
+      <label for="token">GitHub token</label>
+      <input type="password" id="token" placeholder="github_pat_…" autocomplete="off">
+      <label><input type="checkbox" id="remember" style="width:auto;margin-right:6px" checked> Remember on this device</label>
+    </details>
+
+    <div class="row">
+      <div>
+        <label for="title">Title</label>
+        <input type="text" id="title" placeholder="My post title">
+      </div>
+      <div>
+        <label for="date">Date</label>
+        <input type="date" id="date">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="slug">Slug (URL)</label>
+        <input type="text" id="slug" placeholder="my-post-title">
+      </div>
+      <div>
+        <label for="tags">Tags (comma-separated)</label>
+        <input type="text" id="tags" placeholder="case-study, nlp">
+      </div>
+    </div>
+
+    <label>Body (Markdown)</label>
+    <div class="editor-grid">
+      <textarea id="body" rows="22" placeholder="Write in **markdown**…
+
+## A heading
+
+Some text, a [link](https://example.com), and `code`.
+
+```python
+print('hello')
+```"></textarea>
+      <div class="preview" id="preview"><p class="muted">Preview appears here…</p></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" id="publish">Publish to GitHub</button>
+      <button class="btn" id="download">Download .md</button>
+    </div>
+
+    <div id="status"></div>
+  </main>
+
+  <footer>
+    <span>© <span id="yr"></span> Lavkush</span>
+    <span><a href="index.html">Home</a></span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var OWNER = "llavkush", REPO = "llavkush.github.io", BRANCH = "Master";
+    var $ = function (id) { return document.getElementById(id); };
+    $("yr").textContent = new Date().getFullYear();
+
+    // default date = today (local)
+    var now = new Date();
+    $("date").value = now.toISOString().slice(0, 10);
+
+    // restore token
+    var savedTok = localStorage.getItem("gh_token");
+    if (savedTok) $("token").value = savedTok;
+
+    // live preview
+    function renderPreview() {
+      var md = $("body").value;
+      $("preview").innerHTML = md.trim()
+        ? marked.parse(md)
+        : '<p class="muted">Preview appears here…</p>';
+    }
+    $("body").addEventListener("input", renderPreview);
+
+    // auto-slug from title (until user edits slug manually)
+    var slugTouched = false;
+    $("slug").addEventListener("input", function () { slugTouched = true; });
+    $("title").addEventListener("input", function () {
+      if (!slugTouched) $("slug").value = slugify($("title").value);
+    });
+    function slugify(s) {
+      return s.toLowerCase().trim()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/[\s_-]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function setStatus(msg, kind) {
+      $("status").innerHTML = '<div class="notice ' + (kind || "") + '">' + msg + "</div>";
+    }
+
+    function gather() {
+      return {
+        title: $("title").value.trim(),
+        slug: ($("slug").value.trim() || slugify($("title").value)),
+        date: $("date").value,
+        tags: $("tags").value.split(",").map(function (t) { return t.trim(); }).filter(Boolean),
+        body: $("body").value
+      };
+    }
+
+    // ----- download fallback -----
+    $("download").addEventListener("click", function () {
+      var p = gather();
+      if (!p.title || !p.slug) { setStatus("Add a title first.", "err"); return; }
+      var blob = new Blob([p.body], { type: "text/markdown" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = p.slug + ".md";
+      a.click();
+      var entry = JSON.stringify({ slug: p.slug, title: p.title, date: p.date, tags: p.tags }, null, 2);
+      setStatus("Downloaded <code>" + p.slug + ".md</code>. Add it to <code>posts/</code> and " +
+                "add this entry to <code>posts/posts.json</code>:<pre>" + escapeHtml(entry) + "</pre>", "ok");
+    });
+
+    // ----- base64 helpers (unicode-safe) -----
+    function b64encode(str) { return btoa(unescape(encodeURIComponent(str))); }
+    function b64decode(str) { return decodeURIComponent(escape(atob(str.replace(/\s/g, "")))); }
+
+    function ghApi(path, opts, token) {
+      opts = opts || {};
+      opts.headers = Object.assign({
+        "Authorization": "Bearer " + token,
+        "Accept": "application/vnd.github+json"
+      }, opts.headers || {});
+      return fetch("https://api.github.com/repos/" + OWNER + "/" + REPO + path, opts);
+    }
+
+    // get existing file sha (null if it doesn't exist)
+    function getSha(path, token) {
+      return ghApi("/contents/" + path + "?ref=" + BRANCH, {}, token)
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { return j ? { sha: j.sha, content: j.content } : null; });
+    }
+
+    function putFile(path, content, message, sha, token) {
+      var body = { message: message, content: b64encode(content), branch: BRANCH };
+      if (sha) body.sha = sha;
+      return ghApi("/contents/" + path, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      }, token).then(function (r) {
+        return r.json().then(function (j) {
+          if (!r.ok) throw new Error(j.message || ("HTTP " + r.status));
+          return j;
+        });
+      });
+    }
+
+    // ----- publish -----
+    $("publish").addEventListener("click", async function () {
+      var token = $("token").value.trim();
+      var p = gather();
+      if (!token) { setStatus("Paste a GitHub token first (see the section above).", "err"); return; }
+      if (!p.title) { setStatus("Add a title.", "err"); return; }
+      if (!p.slug) { setStatus("Add a slug.", "err"); return; }
+      if (!p.body.trim()) { setStatus("Write some body text.", "err"); return; }
+
+      if ($("remember").checked) localStorage.setItem("gh_token", token);
+      else localStorage.removeItem("gh_token");
+
+      $("publish").disabled = true;
+      setStatus("Publishing…");
+
+      try {
+        // 1) read current index
+        var idxMeta = await getSha("posts/posts.json", token);
+        var list = [];
+        if (idxMeta && idxMeta.content) {
+          try { list = JSON.parse(b64decode(idxMeta.content)); } catch (e) { list = []; }
+        }
+
+        // 2) write the markdown file
+        var mdExisting = await getSha("posts/" + p.slug + ".md", token);
+        await putFile("posts/" + p.slug + ".md", p.body,
+          (mdExisting ? "Update post: " : "Add post: ") + p.title,
+          mdExisting ? mdExisting.sha : null, token);
+
+        // 3) upsert the index entry
+        var entry = { slug: p.slug, title: p.title, date: p.date, tags: p.tags };
+        list = list.filter(function (x) { return x.slug !== p.slug; });
+        list.unshift(entry);
+        await putFile("posts/posts.json", JSON.stringify(list, null, 2) + "\n",
+          "Index: " + p.title, idxMeta ? idxMeta.sha : null, token);
+
+        setStatus('Published! 🎉 It may take ~1 min for GitHub Pages to rebuild. ' +
+          'View: <a href="post.html?p=' + encodeURIComponent(p.slug) + '">' + escapeHtml(p.title) + "</a>", "ok");
+      } catch (err) {
+        setStatus("Failed: " + escapeHtml(err.message || String(err)) +
+          ".<br>Check the token has <b>Contents: write</b> on this repo. " +
+          "You can also use <b>Download .md</b> as a fallback.", "err");
+      } finally {
+        $("publish").disabled = false;
+      }
+    });
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

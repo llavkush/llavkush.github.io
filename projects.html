@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects · Lavkush</title>
+  <meta name="description" content="Data science and machine learning projects by Lavkush.">
+  <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a class="site-title" href="index.html">Lavkush</a>
+    <nav>
+      <a href="blog.html">Blog</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="write.html">Write</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Projects</h1>
+    <p>
+      A selection of data science &amp; ML work. The full gallery lives in my
+      <a href="https://llavkush.github.io/Data-Science-Portfolio/" target="_blank" rel="noopener">project portfolio</a>,
+      and the code is on <a href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>.
+    </p>
+
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://llavkush.github.io/Data-Science-Portfolio/" target="_blank" rel="noopener">Project portfolio</a>
+      <a class="btn" href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>
+    </div>
+
+    <hr>
+
+    <p class="muted">
+      Tip: turn any project into a case study — open
+      <a href="write.html">Write</a>, tag it <code>case-study</code>, and it shows up on the blog.
+    </p>
+  </main>
+
+  <footer>
+    <span>© <span id="yr"></span> Lavkush</span>
+    <span><a href="index.html">Home</a></span>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

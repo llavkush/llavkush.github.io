@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About · Lavkush</title>
+  <meta name="description" content="About Lavkush — experience, education and how to get in touch.">
+  <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a class="site-title" href="index.html">Lavkush</a>
+    <nav>
+      <a href="blog.html">Blog</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="write.html">Write</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    </nav>
+  </header>
+
+  <main>
+    <h1>About</h1>
+    <p>
+      Early-career Data Scientist with an MSc in Computer Science (Data Science).
+      I work across NLP, image processing/generation and applied deep learning —
+      from data cleaning to modeling to shipping. Based in Mumbai.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="images/assets/Lavkush_Ramchandra Gupta_Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+      <a class="btn" href="mailto:lavkushsg@gmail.com">Email</a>
+      <a class="btn" href="https://www.linkedin.com/in/lavkushsg" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+
+    <hr>
+
+    <h2>Experience</h2>
+
+    <div class="entry">
+      <h3>Technology Intern — SuperZop <small>· 2022</small></h3>
+      <div class="where">Computer vision · OpenCV · Flask</div>
+      <ul>
+        <li>Built a color-correction model to recover the true colors of objects using OpenCV.</li>
+        <li>Built a perspective-correction app for bird's-eye views, boosting object detection &amp; dimension-measurement accuracy by ~5%.</li>
+        <li>Created a Flask API for ingesting and processing multiple images.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <h3>Deep Learning Intern — Helppr.ai <small>· 2021</small></h3>
+      <div class="where">NLP · GANs · Transfer learning</div>
+      <ul>
+        <li>Built a DistilBERT text-classification model across 11 UPSC subjects (Science, Geography, Economics, History, …).</li>
+        <li>Built an SRGAN-based image super-resolution model to reconstruct high-res images from low-res inputs.</li>
+        <li>Fine-tuned pre-trained models on custom datasets to 95–98% accuracy, with error analysis.</li>
+        <li>Helped ship ahead of deadline, improving accuracy by ~18% over previous models.</li>
+      </ul>
+    </div>
+
+    <h2>Education</h2>
+
+    <div class="entry">
+      <h3>MSc, Computer Science (Data Science) <small>· 2021</small></h3>
+      <div class="where">University of Mumbai</div>
+      <p>Python, statistics, data analysis &amp; visualization, AI/ML, SQL &amp; analytics, database technology, data modeling, research methodology.</p>
+    </div>
+    <div class="entry">
+      <h3>MSc, Physics <small>· 2020</small></h3>
+      <div class="where">NES Ratnam College of Arts, Science and Commerce</div>
+    </div>
+    <div class="entry">
+      <h3>BSc, Physics <small>· 2017</small></h3>
+      <div class="where">R. J. College</div>
+    </div>
+
+    <hr>
+
+    <h2>Get in touch</h2>
+    <p>
+      Interested in working together? Email
+      <a href="mailto:lavkushsg@gmail.com">lavkushsg@gmail.com</a>
+      or find me on
+      <a href="https://www.linkedin.com/in/lavkushsg" target="_blank" rel="noopener">LinkedIn</a>
+      and <a href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>.
+    </p>
+  </main>
+
+  <footer>
+    <span>© <span id="yr"></span> Lavkush</span>
+    <span><a href="index.html">Home</a></span>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

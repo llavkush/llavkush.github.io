@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Post · Lavkush</title>
+  <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a class="site-title" href="index.html">Lavkush</a>
+    <nav>
+      <a href="blog.html">Blog</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="write.html">Write</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <h1 id="post-title">Loading…</h1>
+      <div class="post-meta" id="post-meta"></div>
+      <div id="post-body"></div>
+    </article>
+    <p style="margin-top:2em"><a href="blog.html">← Back to blog</a></p>
+  </main>
+
+  <footer>
+    <span>© <span id="yr"></span> Lavkush</span>
+    <span><a href="index.html">Home</a></span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById("yr").textContent = new Date().getFullYear();
+    renderPost();
+  </script>
+</body>
+</html>
