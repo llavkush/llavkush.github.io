@@ -10,18 +10,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <a class="site-title" href="index.html">Lavkush</a>
-    <nav>
-      <a href="blog.html">Blog</a>
-      <a href="projects.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="write.html">Write</a>
-      <select class="theme-select" onchange="setTheme(this.value)" aria-label="Theme"></select>
-    </nav>
-  </header>
+  <div class="topbar">
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Open navigation">☰</button>
+    <span class="tb-name"><span class="mark">❡</span> Lavkush</span>
+  </div>
+  <div class="scrim" onclick="closeNav()"></div>
 
-  <main>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main>
     <h1>Write a post</h1>
     <p class="muted">
       Type, preview, publish. Publishing commits a markdown file + updates the
@@ -85,12 +82,10 @@ print('hello')
     </div>
 
     <div id="status"></div>
-  </main>
 
-  <footer>
-    <span>© <span id="yr"></span> Lavkush</span>
-    <span><a href="index.html">Home</a></span>
-  </footer>
+    <div class="page-foot">© <span id="yr"></span> Lavkush Gupta</div>
+    </main>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="app.js"></script>
@@ -135,13 +130,28 @@ print('hello')
       $("status").innerHTML = '<div class="notice ' + (kind || "") + '">' + msg + "</div>";
     }
 
+    function summarize(md) {
+      // first meaningful line, stripped of markdown, ~160 chars
+      var lines = md.split("\n").map(function (l) { return l.trim(); });
+      var line = "";
+      for (var i = 0; i < lines.length; i++) {
+        var l = lines[i];
+        if (!l || l === "---" || l.charAt(0) === "#" || l.indexOf("```") === 0) continue;
+        line = l; break;
+      }
+      line = line.replace(/[*_`>#\[\]]/g, "").replace(/\((https?:[^)]+)\)/g, "").trim();
+      return line.length > 160 ? line.slice(0, 157).trim() + "…" : line;
+    }
+
     function gather() {
+      var body = $("body").value;
       return {
         title: $("title").value.trim(),
         slug: ($("slug").value.trim() || slugify($("title").value)),
         date: $("date").value,
         tags: $("tags").value.split(",").map(function (t) { return t.trim(); }).filter(Boolean),
-        body: $("body").value
+        summary: summarize(body),
+        body: body
       };
     }
 
@@ -154,7 +164,7 @@ print('hello')
       a.href = URL.createObjectURL(blob);
       a.download = p.slug + ".md";
       a.click();
-      var entry = JSON.stringify({ slug: p.slug, title: p.title, date: p.date, tags: p.tags }, null, 2);
+      var entry = JSON.stringify({ slug: p.slug, title: p.title, date: p.date, tags: p.tags, summary: p.summary }, null, 2);
       setStatus("Downloaded <code>" + p.slug + ".md</code>. Add it to <code>posts/</code> and " +
                 "add this entry to <code>posts/posts.json</code>:<pre>" + escapeHtml(entry) + "</pre>", "ok");
     });
@@ -224,7 +234,7 @@ print('hello')
           mdExisting ? mdExisting.sha : null, token);
 
         // 3) upsert the index entry
-        var entry = { slug: p.slug, title: p.title, date: p.date, tags: p.tags };
+        var entry = { slug: p.slug, title: p.title, date: p.date, tags: p.tags, summary: p.summary };
         list = list.filter(function (x) { return x.slug !== p.slug; });
         list.unshift(entry);
         await putFile("posts/posts.json", JSON.stringify(list, null, 2) + "\n",

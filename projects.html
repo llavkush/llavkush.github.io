@@ -4,48 +4,61 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Projects · Lavkush</title>
-  <meta name="description" content="Data science and machine learning projects by Lavkush.">
+  <meta name="description" content="Production AI products and projects by Lavkush Gupta — SuperTRACE, SuperGRT, SuperHR.">
   <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
   <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"charcoal":"red-graphite"))}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <a class="site-title" href="index.html">Lavkush</a>
-    <nav>
-      <a href="blog.html">Blog</a>
-      <a href="projects.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="write.html">Write</a>
-      <select class="theme-select" onchange="setTheme(this.value)" aria-label="Theme"></select>
-    </nav>
-  </header>
+  <div class="topbar">
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Open navigation">☰</button>
+    <span class="tb-name"><span class="mark">❡</span> Lavkush</span>
+  </div>
+  <div class="scrim" onclick="closeNav()"></div>
 
-  <main>
-    <h1>Projects</h1>
-    <p>
-      A selection of data science &amp; ML work. The full gallery lives in my
-      <a href="https://llavkush.github.io/Data-Science-Portfolio/" target="_blank" rel="noopener">project portfolio</a>,
-      and the code is on <a href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>.
-    </p>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main>
+      <h1>Projects</h1>
+      <p>
+        My main work is the three production AI products I led at Khetika. Earlier
+        data-science &amp; ML experiments live in my
+        <a href="https://llavkush.github.io/Data-Science-Portfolio/" target="_blank" rel="noopener">project portfolio</a>,
+        with code on <a href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>.
+      </p>
 
-    <div class="btn-row">
-      <a class="btn btn-primary" href="https://llavkush.github.io/Data-Science-Portfolio/" target="_blank" rel="noopener">Project portfolio</a>
-      <a class="btn" href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>
-    </div>
+      <hr>
 
-    <hr>
+      <h2>Production work</h2>
+      <div class="work">
+        <div class="kicker">LLM Supply-Chain Platform · Lead</div>
+        <h3>SuperTRACE</h3>
+        <p>NL→SQL agent with schema-grounding and query validation — replaced 120+ hrs/month of manual reporting for 100+ users across 2000+ SKUs. <em>FICCI Best Tech-Diffused Agri Startup Award, 2025.</em></p>
+        <div class="stack">JavaScript · Gemini · PostgreSQL · GCP · Next.js · Express.js</div>
+      </div>
+      <div class="work">
+        <div class="kicker">Grain-Quality CV System · Lead · Patent Filed</div>
+        <h3>SuperGRT</h3>
+        <p>End-to-end vision — classification, defect segmentation, colorcard grading — on a Jetson Nano (YOLOv8-Seg + TensorRT) at 26 FPS. 200–300 grains graded in 15s across 7 warehouses, trained on 15k custom images.</p>
+        <div class="stack">Python · PyTorch · ONNX · TensorRT · MLflow · DeepStream · YOLOv5/8</div>
+      </div>
+      <div class="work">
+        <div class="kicker">LLM HR Automation</div>
+        <h3>SuperHR</h3>
+        <p>Tool-calling agent for leave, payroll and policy with human approval loops on DB writes — HR ticket volume down 70%.</p>
+        <div class="stack">JavaScript · OpenAI API · PostgreSQL · Fastify 5 · Next.js · Drizzle</div>
+      </div>
 
-    <p class="muted">
-      Tip: turn any project into a case study — open
-      <a href="write.html">Write</a>, tag it <code>case-study</code>, and it shows up on the blog.
-    </p>
-  </main>
+      <p style="margin-top:1.2em"><a href="about.html">Full details on the about page →</a></p>
 
-  <footer>
-    <span>© <span id="yr"></span> Lavkush</span>
-    <span><a href="index.html">Home</a></span>
-  </footer>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://llavkush.github.io/Data-Science-Portfolio/" target="_blank" rel="noopener">Earlier portfolio</a>
+        <a class="btn" href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>
+      </div>
+
+      <div class="page-foot">© <span id="yr"></span> Lavkush Gupta</div>
+    </main>
+  </div>
 
   <script src="app.js"></script>
   <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>

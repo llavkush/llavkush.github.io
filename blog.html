@@ -4,39 +4,41 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blog · Lavkush</title>
-  <meta name="description" content="Posts, case studies and notes by Lavkush.">
+  <meta name="description" content="Posts, case studies and notes by Lavkush Gupta.">
   <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
   <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"charcoal":"red-graphite"))}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
+  <link rel="alternate" type="application/rss+xml" title="Lavkush Gupta — Blog" href="feed.xml">
 </head>
 <body>
-  <header>
-    <a class="site-title" href="index.html">Lavkush</a>
-    <nav>
-      <a href="blog.html">Blog</a>
-      <a href="projects.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="write.html">Write</a>
-      <select class="theme-select" onchange="setTheme(this.value)" aria-label="Theme"></select>
-    </nav>
-  </header>
+  <div class="topbar">
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Open navigation">☰</button>
+    <span class="tb-name"><span class="mark">❡</span> Lavkush</span>
+  </div>
+  <div class="scrim" onclick="closeNav()"></div>
 
-  <main>
-    <h1>Blog</h1>
-    <p class="muted">Case studies, notes and the occasional vlog.</p>
-    <ul class="post-list" id="all-posts"></ul>
-  </main>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main>
+      <h1 id="blog-h1">Blog</h1>
+      <p class="muted" id="blog-sub">Case studies, notes and the occasional vlog.</p>
+      <ul class="note-list" id="all-posts"></ul>
 
-  <footer>
-    <span>© <span id="yr"></span> Lavkush</span>
-    <span><a href="index.html">Home</a></span>
-  </footer>
+      <div class="page-foot">© <span id="yr"></span> Lavkush Gupta</div>
+    </main>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="app.js"></script>
   <script>
     document.getElementById("yr").textContent = new Date().getFullYear();
-    renderPostList("#all-posts");
+    var tag = new URLSearchParams(location.search).get("tag");
+    if (tag) {
+      document.getElementById("blog-h1").innerHTML = 'Tagged <span class="tag">' + tag + '</span>';
+      document.getElementById("blog-sub").innerHTML = '<a href="blog.html">← all posts</a>';
+      document.title = "#" + tag + " · Lavkush";
+    }
+    renderNoteList("#all-posts", { tag: tag });
   </script>
 </body>
 </html>

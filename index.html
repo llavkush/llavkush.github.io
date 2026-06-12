@@ -3,117 +3,104 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lavkush Gupta · Data Scientist &amp; ML Engineer</title>
-  <meta name="description" content="Lavkush Gupta — Data Scientist & ML Engineer with 3+ years building production ML systems in computer vision, NLP and MLOps. Led patent-pending Super-GRT. Notes, case studies and projects.">
+  <title>Lavkush Gupta · Senior AI Engineer</title>
+  <meta name="description" content="Lavkush Gupta — Senior AI Engineer. 4+ years building production LLM, computer vision and ML systems that replace manual operations. Patent-filed SuperGRT; shipped SuperTRACE & SuperHR to 100+ users.">
   <meta name="author" content="Lavkush Gupta">
-  <meta name="keywords" content="Data Scientist, Machine Learning Engineer, Computer Vision, MLOps, Deep Learning, PyTorch, TensorFlow, YOLOv8, Super-GRT">
+  <meta name="keywords" content="AI Engineer, ML Engineer, LLM, RAG, Agents, Computer Vision, YOLOv8, Jetson, MLOps, NL2SQL, PyTorch, TensorRT">
   <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
   <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"charcoal":"red-graphite"))}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
+  <link rel="alternate" type="application/rss+xml" title="Lavkush Gupta — Blog" href="feed.xml">
 </head>
 <body>
-  <header>
-    <a class="site-title" href="index.html">Lavkush</a>
-    <nav>
-      <a href="blog.html">Blog</a>
-      <a href="projects.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="write.html">Write</a>
-      <select class="theme-select" onchange="setTheme(this.value)" aria-label="Theme"></select>
-    </nav>
-  </header>
+  <div class="topbar">
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Open navigation">☰</button>
+    <span class="tb-name"><span class="mark">❡</span> Lavkush</span>
+  </div>
+  <div class="scrim" onclick="closeNav()"></div>
 
-  <main>
-    <section class="hero">
-      <div class="avatar">L</div>
-      <div class="hero-text">
-        <h1>Lavkush Gupta</h1>
-        <p class="tagline">Data Scientist &amp; ML Engineer — computer vision, NLP &amp; MLOps.</p>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main>
+      <section class="hero">
+        <div class="avatar">ल</div>
+        <div class="hero-text">
+          <h1>Lavkush Gupta</h1>
+          <p class="tagline">Senior AI Engineer — LLM agents, computer vision &amp; MLOps · Mumbai, India</p>
+        </div>
+      </section>
+
+      <p>
+        I build production AI systems that replace manual work — LLM agents,
+        computer vision on edge hardware, and the MLOps that keeps them alive.
+        Over 4+ years at Khetika I've shipped <strong>three 0→1 products</strong>
+        used by <strong>100+ staff across 2000+ SKUs</strong> — cutting reporting
+        time 80% and automating grain quality control at 26 FPS on a Jetson. I care
+        about systems that ship and change how real operations run, not demos that
+        die in a notebook.
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn-primary" href="Lavkush-Gupta-FlowCV-Resume-20250930.pdf" target="_blank" rel="noopener">Résumé</a>
+        <a class="btn" href="https://www.linkedin.com/in/lavkushsg" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="mailto:lavkushsg@gmail.com">Email</a>
       </div>
-    </section>
 
-    <p>
-      I have 3+ years building production ML systems end to end — from data
-      pipelines and modeling to deployment on the edge. I led the ML work on the
-      patent-pending <strong>Super-GRT</strong> (Grain Recognition Technology), and
-      along the way shipped wins like a 40% cost reduction and 35% accuracy gain.
-      Mostly PyTorch/TensorFlow, computer vision (YOLOv8, Detectron2), and the
-      MLOps glue that keeps it running.
-    </p>
-
-    <div class="btn-row">
-      <a class="btn btn-primary" href="Lavkush-Gupta-FlowCV-Resume-20250930.pdf" target="_blank" rel="noopener">Résumé</a>
-      <a class="btn" href="https://www.linkedin.com/in/lavkushsg" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn" href="mailto:lavkushsg@gmail.com">Email</a>
-    </div>
-
-    <hr>
-
-    <section>
-      <h2>Now</h2>
       <div class="cards">
         <div class="card">
-          <h3>Super-GRT</h3>
-          <p>Patent-pending grain-recognition tech — quality assessment from hours to minutes.</p>
+          <h3>LLM &amp; Agents</h3>
+          <p>RAG, NL→SQL and tool-calling agents that 100+ people actually use — not chatbots that demo well and stall in a notebook.</p>
         </div>
         <div class="card">
-          <h3>Edge ML</h3>
-          <p>YOLOv8 / Detectron2 on Jetson Nano at 24–28 FPS for real-time quality checks.</p>
+          <h3>Computer Vision</h3>
+          <p>Grain quality graded by YOLOv8-Seg on a Jetson at 26 FPS — 200–300 grains in 15s, where a human does one or two. Patent filed.</p>
         </div>
         <div class="card">
-          <h3>MLOps pipelines</h3>
-          <p>MLflow · Docker · GitHub Actions — automated versioning, testing &amp; retraining.</p>
+          <h3>MLOps &amp; Platform</h3>
+          <p>Docker, MLflow and CI/CD that cut deploy time 60% and training cost 40% — the plumbing that lets models survive production.</p>
         </div>
         <div class="card">
           <h3>Writing</h3>
-          <p>Turning the above into <a href="blog.html">case studies &amp; notes</a> as I go.</p>
+          <p>Turning the work into <a href="blog.html">case studies and field notes</a> as I build.</p>
         </div>
       </div>
-    </section>
 
-    <hr>
+      <hr>
 
-    <section>
-      <h2>The arc</h2>
-      <ul class="arc">
-        <li><span class="yr">2023→</span><span>ML Engineer, Khetika (SuperZop) — led Super-GRT, edge ML &amp; MLOps</span></li>
-        <li><span class="yr">2022</span><span>Data Science Intern, Khetika — computer vision &amp; color correction</span></li>
-        <li><span class="yr">2021</span><span>MSc, Computer Science (Data Science), University of Mumbai</span></li>
-      </ul>
-      <p class="muted" style="margin-top:.6em"><a href="about.html">Full story, skills &amp; certifications →</a></p>
-    </section>
-
-    <hr>
-
-    <section>
       <h2>Selected work</h2>
-      <p>
-        A gallery of data-science &amp; ML projects lives in my
-        <a href="https://llavkush.github.io/Data-Science-Portfolio/" target="_blank" rel="noopener">project portfolio</a>,
-        with code on <a href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>.
-      </p>
-    </section>
+      <div class="work">
+        <div class="kicker">LLM Supply-Chain Platform · Lead</div>
+        <h3>SuperTRACE</h3>
+        <p>Reports that sit in decks help no one. An NL→SQL agent with schema-grounding and query validation that turned 120+ hours of monthly manual reporting into a question you can just ask — adopted across warehouse, finance and ops for 2000+ SKUs, with data-entry errors down from 5–10/day to under 2/week.</p>
+      </div>
+      <div class="work">
+        <div class="kicker">Grain-Quality CV System · Lead · Patent Filed</div>
+        <h3>SuperGRT</h3>
+        <p>Manual QC is slow, subjective, and doesn't scale to seven warehouses. End-to-end vision — grain classification, defect segmentation and colorcard grading — shipped to an Android app and a Jetson Nano running YOLOv8-Seg + TensorRT at 26 FPS. One photo in, a QC grade and defect breakdown back in ~15s.</p>
+      </div>
+      <div class="work">
+        <div class="kicker">LLM HR Automation</div>
+        <h3>SuperHR</h3>
+        <p>A tool-calling agent over leave, payroll and policy — with a human approval loop on every database write. HR ticket volume down 70%.</p>
+      </div>
+      <p class="muted" style="margin-top:1em"><a href="about.html">Full story, skills &amp; experience →</a></p>
 
-    <hr>
+      <hr>
 
-    <section>
       <h2>Latest writing</h2>
-      <ul class="post-list" id="recent-posts"></ul>
+      <ul class="note-list" id="recent-posts"></ul>
       <p style="margin-top:1em"><a href="blog.html">All posts →</a></p>
-    </section>
-  </main>
 
-  <footer>
-    <span>© <span id="yr"></span> Lavkush Gupta</span>
-    <span><a href="mailto:lavkushsg@gmail.com">lavkushsg@gmail.com</a></span>
-  </footer>
+      <div class="page-foot">© <span id="yr"></span> Lavkush Gupta · Mumbai, India</div>
+    </main>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="app.js"></script>
   <script>
     document.getElementById("yr").textContent = new Date().getFullYear();
-    renderPostList("#recent-posts", 5);
+    renderNoteList("#recent-posts", { limit: 4 });
   </script>
 </body>
 </html>

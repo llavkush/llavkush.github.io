@@ -7,34 +7,32 @@
   <link rel="icon" type="image/png" href="images/icons/favicon-32x32.png">
   <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"charcoal":"red-graphite"))}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github-dark.min.css">
+  <link rel="alternate" type="application/rss+xml" title="Lavkush Gupta — Blog" href="feed.xml">
 </head>
 <body>
-  <header>
-    <a class="site-title" href="index.html">Lavkush</a>
-    <nav>
-      <a href="blog.html">Blog</a>
-      <a href="projects.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="write.html">Write</a>
-      <select class="theme-select" onchange="setTheme(this.value)" aria-label="Theme"></select>
-    </nav>
-  </header>
+  <div class="topbar">
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Open navigation">☰</button>
+    <span class="tb-name"><span class="mark">❡</span> Lavkush</span>
+  </div>
+  <div class="scrim" onclick="closeNav()"></div>
 
-  <main>
-    <article>
-      <h1 id="post-title">Loading…</h1>
-      <div class="post-meta" id="post-meta"></div>
-      <div id="post-body"></div>
-    </article>
-    <p style="margin-top:2em"><a href="blog.html">← Back to blog</a></p>
-  </main>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main>
+      <article>
+        <h1 id="post-title">Loading…</h1>
+        <div class="post-meta" id="post-meta"></div>
+        <div id="post-body"></div>
+      </article>
+      <p style="margin-top:2.4em"><a href="blog.html">← Back to blog</a></p>
 
-  <footer>
-    <span>© <span id="yr"></span> Lavkush</span>
-    <span><a href="index.html">Home</a></span>
-  </footer>
+      <div class="page-foot">© <span id="yr"></span> Lavkush Gupta</div>
+    </main>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11/lib/highlight.min.js"></script>
   <script src="app.js"></script>
   <script>
     document.getElementById("yr").textContent = new Date().getFullYear();
