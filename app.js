@@ -12,8 +12,7 @@
     { id: "gotham",          name: "Gotham" }
   ];
   var root = document.documentElement;
-  function prefersDark() { return window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches; }
-  function currentTheme() { return localStorage.getItem("theme") || (prefersDark() ? "charcoal" : "red-graphite"); }
+  function currentTheme() { return localStorage.getItem("theme") || "red-graphite"; }
   root.setAttribute("data-theme", currentTheme());
   window.setTheme = function (id) { root.setAttribute("data-theme", id); localStorage.setItem("theme", id); syncPickers(); };
   function syncPickers() { document.querySelectorAll(".theme-select").forEach(function (s) { s.value = currentTheme(); }); }
@@ -41,8 +40,7 @@
     { href: "index.html",    label: "Home",     key: "home" },
     { href: "blog.html",     label: "Blog",     key: "blog" },
     { href: "projects.html", label: "Projects", key: "projects" },
-    { href: "about.html",    label: "About",    key: "about" },
-    { href: "write.html",    label: "Write",    key: "write" }
+    { href: "about.html",    label: "About",    key: "about" }
   ];
   function activeKey() {
     var f = (location.pathname.split("/").pop() || "index.html").toLowerCase();
@@ -176,11 +174,44 @@
 
   /* ===== Code syntax highlighting (highlight.js, if present) ===== */
   window.highlightCode = function (scope) {
-    if (!window.hljs) return;
-    (scope || document).querySelectorAll("pre code").forEach(function (block) {
-      try { hljs.highlightElement(block); } catch (e) {}
-    });
+    var root = scope || document;
+    if (window.hljs) {
+      root.querySelectorAll("pre code").forEach(function (block) {
+        try { hljs.highlightElement(block); } catch (e) {}
+      });
+    }
+    addCopyButtons(root);
   };
+
+  /* ===== Copy-to-clipboard buttons on code blocks ===== */
+  function addCopyButtons(root) {
+    root.querySelectorAll("pre").forEach(function (pre) {
+      if (pre.querySelector(".copy-btn")) return;
+      var code = pre.querySelector("code");
+      if (!code) return;
+      pre.classList.add("has-copy");
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "copy-btn";
+      btn.textContent = "Copy";
+      btn.setAttribute("aria-label", "Copy code");
+      btn.addEventListener("click", function () {
+        var text = code.innerText;
+        var done = function () { btn.textContent = "Copied"; btn.classList.add("copied"); setTimeout(function () { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 1600); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text); done(); });
+        } else { fallbackCopy(text); done(); }
+      });
+      pre.appendChild(btn);
+    });
+  }
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+  }
 
   document.addEventListener("DOMContentLoaded", buildSidebar);
 })();
