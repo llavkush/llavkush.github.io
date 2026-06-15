@@ -49,6 +49,18 @@
     return f.replace(".html", "");
   }
 
+  /* ===== Sections (top-level categories) =====
+     Display order for the blog. Anything not listed sorts after these,
+     alphabetically; posts with no category fall back to "Notes". */
+  var CATEGORY_ORDER = [
+    "Machine Learning / AI",
+    "Engineering Notes",
+    "DSA Notes",
+    "Case Studies"
+  ];
+  function catOf(p) { return (p && p.category) || "Notes"; }
+  function catRank(c) { var i = CATEGORY_ORDER.indexOf(c); return i === -1 ? 999 : i; }
+
   /* ===== Post index ===== */
   function loadIndex() {
     return fetch("posts/posts.json", { cache: "no-store" })
@@ -86,6 +98,8 @@
         "</div>" +
       "</a>" +
       '<nav class="side-nav">' + nav + "</nav>" +
+      '<div class="side-label">Sections</div>' +
+      '<div class="side-sections" id="side-sections"></div>' +
       '<div class="side-label">Tags</div>' +
       '<div class="side-tags" id="side-tags"><a href="blog.html">all</a></div>' +
       '<div class="side-foot">' +
@@ -102,8 +116,23 @@
     THEMES.forEach(function (t) { var o = document.createElement("option"); o.value = t.id; o.textContent = t.name; sel.appendChild(o); });
     syncPickers();
 
-    // tags from posts
+    // sections + tags from posts
     loadIndex().then(function (list) {
+      // sections (categories) in display order
+      var catSeen = {};
+      list.forEach(function (p) { var c = catOf(p); catSeen[c] = (catSeen[c] || 0) + 1; });
+      var cats = Object.keys(catSeen).sort(function (a, b) {
+        return (catRank(a) - catRank(b)) || (a < b ? -1 : 1);
+      });
+      var secBox = document.getElementById("side-sections");
+      if (secBox && cats.length) {
+        secBox.innerHTML = cats.map(function (c) {
+          return '<a href="blog.html?category=' + encodeURIComponent(c) + '">' +
+                 escapeHtml(c) + ' <span class="count">' + catSeen[c] + "</span></a>";
+        }).join("");
+      }
+
+      // tags
       var seen = {};
       list.forEach(function (p) { (p.tags || []).forEach(function (t) { seen[t] = (seen[t] || 0) + 1; }); });
       var tags = Object.keys(seen).sort();
@@ -119,27 +148,102 @@
     el.addEventListener("click", function (e) { if (e.target.closest("a")) closeNav(); });
   }
 
-  /* ===== Note list (Bear note cards w/ snippet) ===== */
+  /* ===== Note card (Bear-style, w/ snippet) ===== */
+  function noteCardLi(p) {
+    var tags = (p.tags || []).map(function (t) { return '<span class="tag">' + escapeHtml(t) + "</span>"; }).join(" ");
+    var part = p.part ? '<span class="part-badge">Part ' + escapeHtml(p.part) + "</span>" : "";
+    return '<li><a class="note-card" href="post.html?p=' + encodeURIComponent(p.slug) + '">' +
+             '<div class="nt">' + (part ? part + " " : "") + escapeHtml(p.title) + "</div>" +
+             (p.summary ? '<div class="snippet">' + escapeHtml(p.summary) + "</div>" : "") +
+             '<div class="meta"><span class="date">' + fmtDate(p.date) + "</span>" +
+             (tags ? " " + tags : "") + "</div>" +
+           "</a></li>";
+  }
+  // Paint a list of <li> into el — wrap in a <ul> unless el already is one.
+  function paintList(el, items, empty) {
+    if (!items.length) {
+      var msg = empty || 'No posts yet — <a href="write.html">write the first one</a>.';
+      el.innerHTML = el.tagName === "UL" ? '<li class="muted">' + msg + "</li>" : '<p class="muted">' + msg + "</p>";
+      return;
+    }
+    var html = items.join("");
+    el.innerHTML = el.tagName === "UL" ? html : '<ul class="note-list">' + html + "</ul>";
+  }
+
+  /* ===== Flat note list (Home recent, tag / series / category filters) ===== */
   window.renderNoteList = function (selector, opts) {
     opts = opts || {};
     var el = document.querySelector(selector);
     if (!el) return;
     loadIndex().then(function (list) {
       if (opts.tag) list = list.filter(function (p) { return (p.tags || []).indexOf(opts.tag) !== -1; });
+      if (opts.category) list = list.filter(function (p) { return catOf(p) === opts.category; });
+      if (opts.series) {
+        list = list.filter(function (p) { return p.series === opts.series; });
+        list.sort(function (a, b) { return (a.part || 0) - (b.part || 0); });
+      }
       if (opts.limit) list = list.slice(0, opts.limit);
+      paintList(el, list.map(noteCardLi));
+    });
+  };
+
+  /* ===== Group posts into sections → series + standalone notes ===== */
+  function groupSections(list) {
+    var byCat = {};
+    list.forEach(function (p) { var c = catOf(p); (byCat[c] = byCat[c] || []).push(p); });
+    return Object.keys(byCat).sort(function (a, b) {
+      return (catRank(a) - catRank(b)) || (a < b ? -1 : 1);
+    }).map(function (c) {
+      var seriesMap = {}, order = [], loose = [];
+      byCat[c].forEach(function (p) {
+        if (p.series) {
+          if (!seriesMap[p.series]) { seriesMap[p.series] = []; order.push(p.series); }
+          seriesMap[p.series].push(p);
+        } else { loose.push(p); }
+      });
+      var series = order.map(function (name) {
+        var parts = seriesMap[name].slice().sort(function (a, b) { return (a.part || 0) - (b.part || 0); });
+        return { name: name, parts: parts };
+      });
+      return { category: c, series: series, loose: loose };
+    });
+  }
+
+  function sectionHtml(s, withHead) {
+    var seriesHtml = s.series.map(function (se) {
+      var preview = se.parts.slice(0, 3).map(function (p) { return escapeHtml(p.title); }).join(" · ");
+      if (se.parts.length > 3) preview += " …";
+      return '<a class="series-card" href="blog.html?series=' + encodeURIComponent(se.name) + '">' +
+               '<div class="series-top">' +
+                 '<span class="series-name">' + escapeHtml(se.name) + "</span>" +
+                 '<span class="series-count">' + se.parts.length + " part" + (se.parts.length === 1 ? "" : "s") + "</span>" +
+               "</div>" +
+               '<div class="series-parts">' + preview + "</div>" +
+             "</a>";
+    }).join("");
+    var looseHtml = s.loose.length ? '<ul class="note-list">' + s.loose.map(noteCardLi).join("") + "</ul>" : "";
+    return '<section class="blog-section">' +
+             (withHead ? '<h2 class="section-head">' + escapeHtml(s.category) + "</h2>" : "") +
+             (seriesHtml ? '<div class="series-grid">' + seriesHtml + "</div>" : "") +
+             looseHtml +
+           "</section>";
+  }
+
+  /* ===== Sectioned blog index (optionally a single category) ===== */
+  window.renderBlogIndex = function (selector, opts) {
+    opts = opts || {};
+    var el = document.querySelector(selector);
+    if (!el) return;
+    loadIndex().then(function (list) {
+      if (opts.category) list = list.filter(function (p) { return catOf(p) === opts.category; });
       if (!list.length) {
-        el.innerHTML = '<li class="muted">No posts yet — <a href="write.html">write the first one</a>.</li>';
+        el.innerHTML = '<p class="muted">No posts yet — <a href="write.html">write the first one</a>.</p>';
         return;
       }
-      el.innerHTML = list.map(function (p) {
-        var tags = (p.tags || []).map(function (t) { return '<span class="tag">' + escapeHtml(t) + "</span>"; }).join(" ");
-        return '<li><a class="note-card" href="post.html?p=' + encodeURIComponent(p.slug) + '">' +
-                 '<div class="nt">' + escapeHtml(p.title) + "</div>" +
-                 (p.summary ? '<div class="snippet">' + escapeHtml(p.summary) + "</div>" : "") +
-                 '<div class="meta"><span class="date">' + fmtDate(p.date) + "</span>" +
-                 (tags ? " " + tags : "") + "</div>" +
-               "</a></li>";
-      }).join("");
+      // single-category view omits the redundant section heading (it's the page H1)
+      el.innerHTML = groupSections(list)
+        .map(function (s) { return sectionHtml(s, !opts.category); })
+        .join("");
     });
   };
 
@@ -155,11 +259,39 @@
       if (meta) {
         document.title = meta.title + " · Lavkush";
         if (titleEl) titleEl.textContent = meta.title;
+
+        // breadcrumb: Category › Series
+        var crumbEl = document.getElementById("post-crumb");
+        if (crumbEl) {
+          var crumbs = ['<a href="blog.html?category=' + encodeURIComponent(catOf(meta)) + '">' + escapeHtml(catOf(meta)) + "</a>"];
+          if (meta.series) {
+            crumbs.push('<a href="blog.html?series=' + encodeURIComponent(meta.series) + '">' + escapeHtml(meta.series) + "</a>");
+          }
+          crumbEl.innerHTML = crumbs.join('<span class="sep">›</span>');
+        }
+
         if (metaEl) {
           var tags = (meta.tags || []).map(function (t) {
             return '<a class="tag" href="blog.html?tag=' + encodeURIComponent(t) + '">' + escapeHtml(t) + "</a>";
           }).join(" ");
-          metaEl.innerHTML = '<span class="date">' + fmtDate(meta.date) + "</span>" + (tags ? " " + tags : "");
+          var part = meta.part ? '<span class="part-badge">Part ' + escapeHtml(meta.part) + "</span> " : "";
+          metaEl.innerHTML = part + '<span class="date">' + fmtDate(meta.date) + "</span>" + (tags ? " " + tags : "");
+        }
+
+        // prev / next within the same series (ordered by part)
+        var navEl = document.getElementById("post-nav");
+        if (navEl && meta.series) {
+          var sibs = list.filter(function (p) { return p.series === meta.series; })
+                         .sort(function (a, b) { return (a.part || 0) - (b.part || 0); });
+          var idx = sibs.map(function (p) { return p.slug; }).indexOf(slug);
+          var prev = idx > 0 ? sibs[idx - 1] : null;
+          var next = idx > -1 && idx < sibs.length - 1 ? sibs[idx + 1] : null;
+          var link = function (p, dir) {
+            return '<a class="post-nav-link ' + dir + '" href="post.html?p=' + encodeURIComponent(p.slug) + '">' +
+                     '<span class="dir">' + (dir === "prev" ? "← Previous" : "Next →") + "</span>" +
+                     '<span class="t">' + escapeHtml(p.title) + "</span></a>";
+          };
+          navEl.innerHTML = (prev ? link(prev, "prev") : "<span></span>") + (next ? link(next, "next") : "<span></span>");
         }
       }
       return fetch("posts/" + slug + ".md", { cache: "no-store" });

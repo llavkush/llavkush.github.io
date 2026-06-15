@@ -44,6 +44,16 @@ for (const [i, p] of list.entries()) {
   if (p.tags && !Array.isArray(p.tags)) {
     errors.push(`${where}: "tags" must be an array`);
   }
+  if (!p.category) {
+    errors.push(`${where}: missing "category" (e.g. "Engineering Notes")`);
+  }
+  // "part" only makes sense inside a "series"; when present it must be a number.
+  if (p.part != null && typeof p.part !== "number") {
+    errors.push(`${where}: "part" must be a number`);
+  }
+  if (p.part != null && !p.series) {
+    errors.push(`${where}: has "part" but no "series"`);
+  }
   if (p.slug) {
     if (slugs.has(p.slug)) errors.push(`${where}: duplicate slug`);
     slugs.add(p.slug);
