@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Lavkush Gupta — Blog</title>
+    <title>Lavkush Gupta: Blog</title>
     <link>https://llavkush.github.io/blog.html</link>
     <atom:link href="https://llavkush.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Case studies, field notes and the occasional vlog by Lavkush Gupta.</description>
     <language>en</language>
     <managingEditor>lavkushsg@gmail.com (Lavkush Gupta)</managingEditor>
-    <lastBuildDate>Mon, 15 Jun 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2026 12:00:00 GMT</lastBuildDate>
     <item>
-      <title>Linear Algebra Intuition — Why Every AI Model Is Just Matrix Math</title>
+      <title>Self-Attention from Scratch: Building the Transformer's Engine in Plain Python</title>
+      <link>https://llavkush.github.io/post.html?p=self-attention-from-scratch</link>
+      <guid isPermaLink="false">self-attention-from-scratch</guid>
+      <pubDate>Sat, 20 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Build scaled dot-product self-attention with nothing but lists and a square root, then read the attention weights as it learns that 'cat' and 'mat' belong together. Q, K, V decoded with a dating-app analogy. No PyTorch, no NumPy required.</description>
+      <category>transformers</category>
+      <category>attention</category>
+      <category>self-attention</category>
+      <category>deep-learning</category>
+    </item>
+    <item>
+      <title>Why Transformers: From One-Word-at-a-Time to the Group Chat</title>
+      <link>https://llavkush.github.io/post.html?p=why-transformers</link>
+      <guid isPermaLink="false">why-transformers</guid>
+      <pubDate>Thu, 18 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Why the world dropped RNNs for Transformers, explained with a kitchen, a group chat, and short runnable Python, including a self-attention pass that resolves a pronoun on a real sentence. No PhD, no PyTorch.</description>
+      <category>transformers</category>
+      <category>attention</category>
+      <category>deep-learning</category>
+    </item>
+    <item>
+      <title>Linear Algebra Intuition: Why Every AI Model Is Just Matrix Math</title>
       <link>https://llavkush.github.io/post.html?p=linear-algebra-intuition</link>
       <guid isPermaLink="false">linear-algebra-intuition</guid>
       <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
-      <description>A 5-minute, STAR-format walk through vectors, matrices, dot products, rank and projections — the geometric intuition behind every neural network, plus plain-English Q&amp;A and paper exercises.</description>
+      <description>A 5-minute, STAR-format walk through vectors, matrices, dot products, rank and projections: the geometric intuition behind every neural network, plus plain-English Q&amp;A and paper exercises.</description>
       <category>math</category>
       <category>linear-algebra</category>
       <category>ml-foundations</category>
@@ -30,11 +51,11 @@
       <category>python</category>
     </item>
     <item>
-      <title>Welcome — a new home for my notes &amp; case studies</title>
+      <title>Welcome: a new home for my notes &amp; case studies</title>
       <link>https://llavkush.github.io/post.html?p=welcome</link>
       <guid isPermaLink="false">welcome</guid>
       <pubDate>Thu, 28 May 2026 12:00:00 GMT</pubDate>
-      <description>I rebuilt this site in a minimal, Bear-inspired style — and it&apos;s now also home to my case studies, notes and the occasional vlog.</description>
+      <description>I rebuilt this site in a minimal, Bear-inspired style, and it&apos;s now also home to my case studies, notes and the occasional vlog.</description>
       <category>meta</category>
     </item>
   </channel>

@@ -1,10 +1,10 @@
-*How I went from juggling multiple terminals, crashed processes and manual server restarts to a single, calm workflow — using one lightweight tool.*
+*How I went from juggling multiple terminals, crashed processes and manual server restarts to a single, calm workflow, using one lightweight tool.*
 
 **5 minute read**
 
 ---
 
-A few months ago I was working on several projects at once. Some were built with Node.js, some with Flask and FastAPI, and most had a frontend and a backend running as separate processes. The applications themselves were never the problem — *managing* them was.
+A few months ago I was working on several projects at once. Some were built with Node.js, some with Flask and FastAPI, and most had a frontend and a backend running as separate processes. The applications themselves were never the problem: *managing* them was.
 
 My day kept turning into a loop of running things by hand:
 
@@ -22,13 +22,13 @@ Everything worked perfectly, until it didn't. And that's where **PM2** entered t
 
 ## Situation
 
-At first my workflow seemed fine: open a terminal, start the backend, open another terminal, start the frontend, SSH into a server, start a service manually — and repeat. It scaled badly the moment reality showed up.
+At first my workflow seemed fine: open a terminal, start the backend, open another terminal, start the frontend, SSH into a server, start a service manually, and repeat. It scaled badly the moment reality showed up.
 
 An application would crash unexpectedly. A VM would reboot after maintenance. A process would consume too much memory and get killed by the OS. Or I'd SSH into a machine only to discover the service hadn't been running for hours.
 
-The fix was always trivial — `node app.js` or `python app.py` again — but having to *notice* the failure and do it by hand never was. None of these were huge problems on their own. They were lots of small problems quietly stacking up, and the more services I ran, the heavier that pile got.
+The fix was always trivial (`node app.js` or `python app.py` again), but having to *notice* the failure and do it by hand never was. None of these were huge problems on their own. They were lots of small problems quietly stacking up, and the more services I ran, the heavier that pile got.
 
-My first instinct was the classic trick — background the process with `nohup` so it survives the terminal closing:
+My first instinct was the classic trick: background the process with `nohup` so it survives the terminal closing:
 
 ```bash
 nohup node app.js > app.log 2>&1 &
@@ -45,7 +45,7 @@ I needed one tool that could:
 - **Automatically restart** crashed applications
 - **Centralise logs** so they live in one place
 - **Monitor** CPU and memory usage
-- **Survive reboots** — start services automatically after the server comes back
+- **Survive reboots**: start services automatically after the server comes back
 - **Manage many services** together as a group
 - Work with **both Python and Node.js**
 - Stay **lightweight and quick** to set up
@@ -56,7 +56,7 @@ Most importantly, I didn't want to add unnecessary complexity. For a lot of thes
 
 ## Action
 
-That's when I started using PM2. I'd assumed it was a Node.js-only tool — and I was completely wrong.
+That's when I started using PM2. I'd assumed it was a Node.js-only tool, and I was completely wrong.
 
 PM2 is, at its core, a **process manager**: if you can start an application with a command, PM2 can usually keep it alive, watch it and restart it. Installation took less than a minute:
 
@@ -99,7 +99,7 @@ Normally I'd run `node app.js` and babysit it. With PM2 I start it once and name
 pm2 start app.js --name node-api
 ```
 
-Now when the process calls `process.exit(1)`, PM2 detects the failure and restarts it automatically — no SSH login, no manual restart, no surprise downtime.
+Now when the process calls `process.exit(1)`, PM2 detects the failure and restarts it automatically: no SSH login, no manual restart, no surprise downtime.
 
 ---
 
@@ -119,7 +119,7 @@ For a live view, PM2 ships a built-in dashboard:
 pm2 monit
 ```
 
-This gives a real-time picture of CPU utilisation, memory consumption, running services and overall health — genuinely useful for troubleshooting without reaching for a separate monitoring stack.
+This gives a real-time picture of CPU utilisation, memory consumption, running services and overall health, genuinely useful for troubleshooting without reaching for a separate monitoring stack.
 
 ---
 
@@ -141,7 +141,7 @@ When you're debugging a production issue, having logs centralised saves a surpri
 
 ## PM2 isn't just for Node.js
 
-This was the biggest surprise for me — PM2 works just as well with Python. Point it at the right interpreter and you're done.
+This was the biggest surprise for me: PM2 works just as well with Python. Point it at the right interpreter and you're done.
 
 A Flask app:
 
@@ -157,7 +157,7 @@ pm2 start "uvicorn main:app --host 0.0.0.0 --port 8000" \
   --name fastapi-api
 ```
 
-You still get automatic restarts, monitoring, logs, startup recovery and group management — exactly the same experience as with Node.
+You still get automatic restarts, monitoring, logs, startup recovery and group management, exactly the same experience as with Node.
 
 ---
 
@@ -201,7 +201,7 @@ By default a Node.js process runs on a single core. PM2 can fork multiple instan
 pm2 start app.js -i max
 ```
 
-This uses every available CPU core and distributes requests between the instances — no application changes required.
+This uses every available CPU core and distributes requests between the instances, no application changes required.
 
 ---
 
@@ -226,7 +226,7 @@ Whenever I mention PM2, someone asks the obvious question:
 
 They solve different problems. **Docker** packages an application and its dependencies into an isolated, portable container. **PM2** keeps a process alive and manageable on whatever host it's already on.
 
-Docker is the right call when you need environment consistency, portability, containerised deployments and reproducibility across environments. But for many small and medium projects it adds overhead — building images, managing containers, networking, registries and extra resource usage.
+Docker is the right call when you need environment consistency, portability, containerised deployments and reproducibility across environments. But for many small and medium projects it adds overhead: building images, managing containers, networking, registries and extra resource usage.
 
 Sometimes all you actually need is: start the app, keep it running, restart it if it crashes, watch its resources, and read its logs. For those cases PM2 is a much lighter answer:
 
@@ -235,7 +235,7 @@ pm2 start app.py --interpreter python3 --name backend
 pm2 start "npm run dev" --interpreter bash --name frontend
 ```
 
-No Dockerfile, no image builds, no orchestration — just running applications.
+No Dockerfile, no image builds, no orchestration, just running applications.
 
 That said, PM2 doesn't *replace* Docker; in production they often complement each other:
 
@@ -252,9 +252,9 @@ The right tool depends on the problem you're solving.
 
 The free version is more than enough for most personal projects and plenty of production workloads. For larger setups, **PM2 Plus** adds centralised dashboards, real-time monitoring, alerts, advanced metrics, distributed visibility and team collaboration. If you're running many applications across many servers, it's worth a look.
 
-- PM2 Runtime — <https://pm2.io/>
-- PM2 Documentation — <https://pm2.keymetrics.io/>
-- PM2 Plus — <https://pm2.io/plus/>
+- PM2 Runtime: <https://pm2.io/>
+- PM2 Documentation: <https://pm2.keymetrics.io/>
+- PM2 Plus: <https://pm2.io/plus/>
 
 ---
 
@@ -295,11 +295,11 @@ Most importantly, I stopped worrying about whether my applications were even sti
 
 ## What I learned
 
-When developers talk about infrastructure, the conversation jumps straight to Docker, Kubernetes, service meshes and cloud-native platforms. Those tools absolutely have their place — but sometimes the highest-ROI improvement is solving a much smaller question first:
+When developers talk about infrastructure, the conversation jumps straight to Docker, Kubernetes, service meshes and cloud-native platforms. Those tools absolutely have their place, but sometimes the highest-ROI improvement is solving a much smaller question first:
 
 > "What happens when my application crashes?"
 
-For me, PM2 answered that in under ten minutes, and as a bonus became my default way of launching and managing both backend and frontend services. Not every useful tool needs to be complex — some of the best ones quietly do their job and stay out of your way. PM2 is one of those.
+For me, PM2 answered that in under ten minutes, and as a bonus became my default way of launching and managing both backend and frontend services. Not every useful tool needs to be complex: some of the best ones quietly do their job and stay out of your way. PM2 is one of those.
 
 ---
 

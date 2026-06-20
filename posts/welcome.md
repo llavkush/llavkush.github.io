@@ -1,4 +1,4 @@
-I've rebuilt this site in a minimal, Bear-inspired style — fast, distraction-free, and the same in dark mode as in light. Beyond the portfolio, it's now also a home for **case studies, notes and the occasional vlog**.
+I've rebuilt this site in a minimal, Bear-inspired style: fast, distraction-free, and the same in dark mode as in light. Beyond the portfolio, it's now also a home for **case studies, notes and the occasional vlog**.
 
 ## Why the change
 
@@ -10,7 +10,7 @@ The old site was a heavy template. I wanted something I could actually *write* i
 
 ## Writing on the go
 
-There's a [Write](write.html) page with a live preview. I paste a GitHub token once, hit publish, and it commits the post straight to the repo — no laptop required.
+There's a [Write](write.html) page with a live preview. I paste a GitHub token once, hit publish, and it commits the post straight to the repo, no laptop required.
 
 ## What's next
 

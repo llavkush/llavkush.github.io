@@ -380,6 +380,33 @@ article #post-title { font-size: 2.3rem; line-height: 1.15; letter-spacing: -.02
 #post-body pre, .editor-grid .preview pre { font-size: .9rem; line-height: 1.6; margin: 1.4em 0; }
 #post-body :not(pre) > code, .editor-grid .preview :not(pre) > code { font-size: .82em; }
 
+/* Tables: comfortable spacing, zebra rows, themed header. Wrapped so wide
+   tables scroll instead of breaking the layout. */
+#post-body table, .editor-grid .preview table {
+  width: 100%; border-collapse: collapse; margin: 1.5em 0;
+  font-family: var(--font-ui); font-size: .95rem; line-height: 1.45;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; display: table;
+}
+#post-body thead th, .editor-grid .preview thead th {
+  background: var(--surface); color: var(--text);
+  font-weight: 700; text-align: left;
+  border-bottom: 2px solid var(--accent);
+}
+#post-body th, #post-body td,
+.editor-grid .preview th, .editor-grid .preview td {
+  padding: .6em .85em; vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+#post-body tbody tr:nth-child(even),
+.editor-grid .preview tbody tr:nth-child(even) { background: var(--surface-2); }
+#post-body tbody tr:last-child td,
+.editor-grid .preview tbody tr:last-child td { border-bottom: none; }
+/* inline code inside cells shouldn't add its own box; keep cells aligned */
+#post-body td code, .editor-grid .preview td code {
+  white-space: nowrap; font-size: .85em;
+}
+
 /* Copy button on code blocks */
 pre.has-copy { position: relative; }
 .copy-btn {

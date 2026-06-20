@@ -1,11 +1,11 @@
 # Writing & formatting guide
 
-Keep every post consistent by following this. (This file is a reference — it isn't published on the blog.)
+Keep every post consistent by following this. (This file is a reference: it isn't published on the blog.)
 
 ## How a post is made of two parts
 
-1. **The Markdown file** — `posts/<slug>.md` — holds *only the body*.
-2. **The index entry** — an object in `posts/posts.json` — holds the title, date and tags.
+1. **The Markdown file** (`posts/<slug>.md`) holds *only the body*.
+2. **The index entry** (an object in `posts/posts.json`) holds the title, date and tags.
 
 The [Write](../write.html) page does both for you automatically. This guide is for when you write by hand or want to keep the style uniform.
 
@@ -22,10 +22,10 @@ Newest first. Each entry:
 }
 ```
 
-- **slug** — lowercase, words separated by hyphens (`-`). Must match the `.md` filename (`my-post` → `posts/my-post.md`).
-- **title** — the headline. This is rendered as the page `H1`, so **don't repeat it** inside the Markdown body.
-- **date** — `YYYY-MM-DD`. Controls ordering (newest first).
-- **tags** — lowercase, hyphenated, 1–4 of them. Shown as `#hashtag` pills.
+- **slug**: lowercase, words separated by hyphens (`-`). Must match the `.md` filename (`my-post` → `posts/my-post.md`).
+- **title**: the headline. This is rendered as the page `H1`, so **don't repeat it** inside the Markdown body.
+- **date**: `YYYY-MM-DD`. Controls ordering (newest first).
+- **tags**: lowercase, hyphenated, 1–4 of them. Shown as `#hashtag` pills.
 
 ## The Markdown body (`posts/<slug>.md`)
 
@@ -40,7 +40,7 @@ Optionally open with an italic one-line summary and a read-time, then a divider:
 ---
 ```
 
-Do **not** put the post title (`# Title`) at the top — the title comes from `posts.json`.
+Do **not** put the post title (`# Title`) at the top, the title comes from `posts.json`.
 
 ### Headings
 - The title is the only `H1` (handled by the site).
@@ -85,7 +85,7 @@ print("hello")
 [link text](https://example.com)
 ![alt text](../images/project/1.png)
 ```
-Image paths are relative to the site root (posts render inside `post.html` at the root), e.g. `images/...` — or use a full URL.
+Image paths are relative to the site root (posts render inside `post.html` at the root), e.g. `images/...`, or use a full URL.
 
 ### Tags line (optional)
 A trailing line like `#DevOps #Python` renders as plain text (no `#` heading), so it's safe to keep. Prefer putting the real tags in `posts.json`.

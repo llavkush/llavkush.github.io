@@ -1,13 +1,33 @@
 [
   {
+    "slug": "self-attention-from-scratch",
+    "title": "Self-Attention from Scratch: Building the Transformer's Engine in Plain Python",
+    "date": "2026-06-20",
+    "category": "Machine Learning / AI",
+    "series": "Transformers from Scratch",
+    "part": 2,
+    "tags": ["transformers", "attention", "self-attention", "deep-learning"],
+    "summary": "Build scaled dot-product self-attention with nothing but lists and a square root, then read the attention weights as it learns that 'cat' and 'mat' belong together. Q, K, V decoded with a dating-app analogy. No PyTorch, no NumPy required."
+  },
+  {
+    "slug": "why-transformers",
+    "title": "Why Transformers: From One-Word-at-a-Time to the Group Chat",
+    "date": "2026-06-18",
+    "category": "Machine Learning / AI",
+    "series": "Transformers from Scratch",
+    "part": 1,
+    "tags": ["transformers", "attention", "deep-learning"],
+    "summary": "Why the world dropped RNNs for Transformers, explained with a kitchen, a group chat, and short runnable Python, including a self-attention pass that resolves a pronoun on a real sentence. No PhD, no PyTorch."
+  },
+  {
     "slug": "linear-algebra-intuition",
-    "title": "Linear Algebra Intuition — Why Every AI Model Is Just Matrix Math",
+    "title": "Linear Algebra Intuition: Why Every AI Model Is Just Matrix Math",
     "date": "2026-06-15",
     "category": "Machine Learning / AI",
     "series": "AI Engineering from Scratch",
     "part": 1,
     "tags": ["math", "linear-algebra", "ml-foundations"],
-    "summary": "A 5-minute, STAR-format walk through vectors, matrices, dot products, rank and projections — the geometric intuition behind every neural network, plus plain-English Q&A and paper exercises."
+    "summary": "A 5-minute, STAR-format walk through vectors, matrices, dot products, rank and projections: the geometric intuition behind every neural network, plus plain-English Q&A and paper exercises."
   },
   {
     "slug": "pm2",
@@ -19,10 +39,10 @@
   },
   {
     "slug": "welcome",
-    "title": "Welcome — a new home for my notes & case studies",
+    "title": "Welcome: a new home for my notes & case studies",
     "date": "2026-05-28",
     "category": "Case Studies",
     "tags": ["meta"],
-    "summary": "I rebuilt this site in a minimal, Bear-inspired style — and it's now also home to my case studies, notes and the occasional vlog."
+    "summary": "I rebuilt this site in a minimal, Bear-inspired style, and it's now also home to my case studies, notes and the occasional vlog."
   }
 ]
