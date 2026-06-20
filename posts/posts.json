@@ -1,5 +1,15 @@
 [
   {
+    "slug": "linear-algebra-intuition",
+    "title": "Linear Algebra Intuition — Why Every AI Model Is Just Matrix Math",
+    "date": "2026-06-15",
+    "category": "Machine Learning / AI",
+    "series": "AI Engineering from Scratch",
+    "part": 1,
+    "tags": ["math", "linear-algebra", "ml-foundations"],
+    "summary": "A 5-minute, STAR-format walk through vectors, matrices, dot products, rank and projections — the geometric intuition behind every neural network, plus plain-English Q&A and paper exercises."
+  },
+  {
     "slug": "pm2",
     "title": "PM2: The Tool That Quietly Solved Multiple Problems for Me",
     "date": "2026-06-02",

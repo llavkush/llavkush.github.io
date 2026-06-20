@@ -6,6 +6,11 @@
   <title>Lavkush Gupta — Résumé</title>
   <meta name="description" content="Résumé of Lavkush Gupta — Senior AI Engineer. LLM agents, computer vision and MLOps.">
   <link rel="icon" type="image/svg+xml" href="images/icons/favicon.svg">
+  <!-- Embed Inter so the résumé renders with the exact same font on screen
+       AND in the printed/Saved-as-PDF output, on any machine or browser. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#ffffff; --panel:#faf8f5; --text:#2b2b2b; --muted:#6f6a62;
@@ -27,7 +32,7 @@
     header{border-bottom:2px solid var(--accent); padding-bottom:16px; margin-bottom:20px}
     .name{font-size:30px; font-weight:800; letter-spacing:-.5px; margin:0}
     .role{font-size:15px; color:var(--accent); font-weight:600; margin:3px 0 10px}
-    .contact{display:flex; flex-wrap:wrap; gap:6px 16px; font-size:12.5px; color:var(--muted)}
+    .contact{display:flex; flex-wrap:nowrap; white-space:nowrap; gap:6px 12px; font-size:12px; color:var(--muted)}
     .contact a{color:var(--muted); text-decoration:none}
     .contact a:hover{color:var(--accent)}
     .contact span.sep{color:var(--line)}
@@ -61,58 +66,62 @@
     .row .where{color:var(--muted); font-size:12px}
 
     .print-hint{max-width:820px; margin:14px auto 0; text-align:center; font-size:12px; color:#777}
-    .print-hint button{font:inherit; cursor:pointer; background:var(--accent); color:#fff;
-      border:none; border-radius:6px; padding:6px 14px; font-size:12px}
+    .print-hint .dl{display:inline-block; font:inherit; cursor:pointer; background:var(--accent);
+      color:#fff; text-decoration:none; border-radius:6px; padding:7px 16px; font-size:12px}
+    .print-hint .dl:hover{opacity:.92}
 
     @media print{
-      /* ---- one-page fit: tighter type & spacing ---- */
-      body{background:#fff; font-size:9.6px; line-height:1.32}
-      .sheet{box-shadow:none; margin:0; max-width:none; width:auto; padding:9mm 11mm}
+      /* ---- print / Save-as-PDF ----
+         Keep the SAME Inter font and the SAME spacing as on screen; just let
+         the résumé flow across as many A4 pages as it needs, breaking only at
+         clean boundaries (never inside a job, project or list). */
+      body{background:#fff}
+      .sheet{box-shadow:none; margin:0; max-width:none; width:auto}
       .print-hint{display:none}
 
-      header{padding-bottom:9px; margin-bottom:11px}
-      .name{font-size:23px}
-      .role{font-size:12px; margin:2px 0 6px}
-      .contact{font-size:10px; gap:3px 11px}
+      /* keep the accent colour & rules when printing (Chrome/Edge strip
+         backgrounds by default; this forces them through) */
+      *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
 
-      section{margin-top:10px}
-      h2{font-size:10px; margin-bottom:6px; padding-bottom:3px}
-      .summary{font-size:10px}
-
-      .job{margin-bottom:9px}
-      .job-title{font-size:11.5px}
-      .job-date{font-size:10px}
-      .proj{margin-top:6px}
-      .proj-name{font-size:11px}
-      .proj-tag{font-size:9.5px}
-      ul{margin-top:3px}
-      li{margin:1px 0}
-      .stack{font-size:9.5px; margin-top:3px}
-      .skill-row{font-size:10px; margin:2px 0}
-      .row{margin:2px 0}
-
+      /* a section heading must never be the last thing on a page */
       h2{break-after:avoid; page-break-after:avoid}
-      /* protect each entry & project as a unit */
+      section{break-inside:auto; page-break-inside:auto}
+
+      /* keep each experience entry, project block and list together; if one
+         doesn't fit on the current page it moves whole to the next */
       .job{break-inside:avoid; page-break-inside:avoid}
       .proj{break-inside:avoid; page-break-inside:avoid}
       .job-head{break-after:avoid; page-break-after:avoid}
+      .row{break-inside:avoid; page-break-inside:avoid}
       ul, li{break-inside:avoid; page-break-inside:avoid}
-      /* the lead role is taller than a page — let it break BETWEEN its projects */
+      p, li{orphans:2; widows:2}
+
+      /* the lead role is taller than a page — let it break BETWEEN its
+         projects (each project still stays intact via .proj above) */
       .job.lead{break-inside:auto; page-break-inside:auto}
-      /* margin:0 suppresses the browser's date/title/URL header & footer;
-         the .sheet padding above provides the safe whitespace instead */
-      @page{size:A4; margin:0}
+
+      /* All four margins live on @page, so EVERY page — including ones
+         created at a break — gets identical top/bottom/left/right whitespace
+         and content never touches an edge. A non-zero margin still suppresses
+         Chrome/Edge's auto header/footer. .sheet padding is zeroed so the two
+         don't stack into a double margin. */
+      @page{size:A4 portrait; margin:8mm 13mm 14mm}
+      .sheet{padding:0}
+
+      /* keep all contact links on a single line in print */
+      .contact{flex-wrap:nowrap; white-space:nowrap; gap:6px 10px; font-size:11px}
     }
   </style>
 </head>
 <body>
 
   <div class="print-hint">
-    <button onclick="window.print()">⬇ Save as PDF / Print</button>
-    &nbsp; Use “Save as PDF” in the print dialog.
+    <!-- Downloads the pre-built PDF directly (same file in every browser).
+         Regenerate resume.pdf whenever this page's content changes. -->
+    <a class="dl" href="resume.pdf" download="Lavkush-Gupta-Resume.pdf">⬇ Download PDF</a>
   </div>
 
-  <div class="sheet">
+  <div class="sheet" id="sheet">
     <header>
       <h1 class="name">Lavkush Gupta</h1>
       <p class="role">Senior AI Engineer — LLM Agents · Computer Vision · Deep Learning</p>
@@ -133,7 +142,7 @@
         100+ staff across 2000+ SKUs — cutting reporting time 80% and automating quality control
         on edge hardware. Specialized in RAG, agents and high-FPS computer vision on Jetson, with
         ownership across the full arc: annotation, training, deployment, APIs and the MLOps that
-        keeps it running. <b>Patent filed</b> · <b>FICCI Award 2025</b>.
+        keeps it running. <b>Patent granted</b> · <b>FICCI Award 2025</b>.
       </p>
     </section>
 
@@ -158,12 +167,12 @@
         </div>
 
         <div class="proj">
-          <span class="proj-name">SuperGRT</span> — <span class="proj-tag">Grain-Quality CV System · Lead · Patent Filed</span>
+          <span class="proj-name">SuperGRT</span> — <span class="proj-tag">Grain-Quality CV System · Lead · Patent Granted</span>
           <ul>
             <li>Owned the full ML lifecycle — annotation, training, re-training and deployment — across grains, sugar, makhana, dry fruits and spices.</li>
             <li>Built classification for grain type, deep-learning segmentation for defect detection, and colorcard-based color grading for quality analysis.</li>
             <li>Replaced manual QC with a Jetson Nano running YOLOv8-Seg + TensorRT at 26 FPS — grading 200–300 grains/sample in ~15s vs. one or two by hand.</li>
-            <li>Shipped APIs + backend for an Android inward-QC app (photo to cloud preprocessing to inference to grade in ~15s); standardized QC across 7 warehouses, trained on 15k custom images. Patent filed with the Indian Patent Office.</li>
+            <li>Shipped APIs + backend for an Android inward-QC app (photo to cloud preprocessing to inference to grade in ~15s); standardized QC across 7 warehouses, trained on 15k custom images. Patent granted by the Indian Patent Office.</li>
           </ul>
           <div class="stack">Python · PyTorch · ONNX · TensorRT · MLflow · NVIDIA DeepStream · YOLOv5/8 · Azure AI Studio</div>
         </div>
@@ -172,6 +181,7 @@
           <span class="proj-name">SuperHR</span> — <span class="proj-tag">LLM HR Automation</span>
           <ul>
             <li>Cut HR ticket volume 70% with a chatbot + tool-calling agent for leave, payroll and policy over MySQL, with human approval loops on all database writes.</li>
+            <li>Built a performance &amp; goal-management module where managers and HR set, assign and track team goals — an LLM drafts SMART goals, reviews and feedback summaries from KPIs, surfacing progress to managers.</li>
           </ul>
           <div class="stack">JavaScript · OpenAI API · PostgreSQL · Fastify 5 · Next.js · Drizzle ORM</div>
         </div>
@@ -221,7 +231,7 @@
     <section>
       <h2>Achievements</h2>
       <ul>
-        <li><b>Patent filed</b> — SuperGRT Grain Recognition Technology (Indian Patent Office).</li>
+        <li><b>Patent granted</b> — SuperGRT Grain Recognition Technology (Indian Patent Office).</li>
         <li><b>FICCI Best Tech-Diffused Agri Startup Award (2025)</b> — SuperTRACE.</li>
         <li><b>Winner</b> — Internal AI Automation Hackathon (SuperTRACE); <b>Runner-up</b> (SuperHR).</li>
       </ul>

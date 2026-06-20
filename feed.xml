@@ -7,7 +7,17 @@
     <description>Case studies, field notes and the occasional vlog by Lavkush Gupta.</description>
     <language>en</language>
     <managingEditor>lavkushsg@gmail.com (Lavkush Gupta)</managingEditor>
-    <lastBuildDate>Tue, 02 Jun 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jun 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Linear Algebra Intuition — Why Every AI Model Is Just Matrix Math</title>
+      <link>https://llavkush.github.io/post.html?p=linear-algebra-intuition</link>
+      <guid isPermaLink="false">linear-algebra-intuition</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>A 5-minute, STAR-format walk through vectors, matrices, dot products, rank and projections — the geometric intuition behind every neural network, plus plain-English Q&amp;A and paper exercises.</description>
+      <category>math</category>
+      <category>linear-algebra</category>
+      <category>ml-foundations</category>
+    </item>
     <item>
       <title>PM2: The Tool That Quietly Solved Multiple Problems for Me</title>
       <link>https://llavkush.github.io/post.html?p=pm2</link>

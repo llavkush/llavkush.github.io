@@ -307,8 +307,19 @@
   /* ===== Code syntax highlighting (highlight.js, if present) ===== */
   window.highlightCode = function (scope) {
     var root = scope || document;
+    // Mermaid: convert ```mermaid fences into rendered diagrams (before hljs/copy buttons)
+    if (window.mermaid) {
+      root.querySelectorAll("pre code.language-mermaid").forEach(function (block) {
+        var div = document.createElement("div");
+        div.className = "mermaid";
+        div.textContent = block.textContent;
+        block.parentElement.replaceWith(div);
+      });
+      try { mermaid.run({ querySelector: ".mermaid" }); } catch (e) {}
+    }
     if (window.hljs) {
       root.querySelectorAll("pre code").forEach(function (block) {
+        if (block.classList.contains("language-mermaid")) return;
         try { hljs.highlightElement(block); } catch (e) {}
       });
     }
