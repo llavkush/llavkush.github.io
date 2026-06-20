@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Lavkush Gupta: Blog</title>
+    <title>Lavkush Gupta — Blog</title>
     <link>https://llavkush.github.io/blog.html</link>
     <atom:link href="https://llavkush.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Case studies, field notes and the occasional vlog by Lavkush Gupta.</description>
@@ -9,11 +9,11 @@
     <managingEditor>lavkushsg@gmail.com (Lavkush Gupta)</managingEditor>
     <lastBuildDate>Sat, 20 Jun 2026 12:00:00 GMT</lastBuildDate>
     <item>
-      <title>Self-Attention from Scratch: Building the Transformer's Engine in Plain Python</title>
+      <title>Self-Attention from Scratch: Building the Transformer&apos;s Engine in Plain Python</title>
       <link>https://llavkush.github.io/post.html?p=self-attention-from-scratch</link>
       <guid isPermaLink="false">self-attention-from-scratch</guid>
       <pubDate>Sat, 20 Jun 2026 12:00:00 GMT</pubDate>
-      <description>Build scaled dot-product self-attention with nothing but lists and a square root, then read the attention weights as it learns that 'cat' and 'mat' belong together. Q, K, V decoded with a dating-app analogy. No PyTorch, no NumPy required.</description>
+      <description>Build scaled dot-product self-attention with nothing but lists and a square root, then read the attention weights as it learns that &apos;cat&apos; and &apos;mat&apos; belong together. Q, K, V decoded with a dating-app analogy. No PyTorch, no NumPy required.</description>
       <category>transformers</category>
       <category>attention</category>
       <category>self-attention</category>
