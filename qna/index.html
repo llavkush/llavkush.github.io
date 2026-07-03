@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Q&amp;A · Lavkush</title>
+  <link rel="icon" type="image/svg+xml" href="../images/icons/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="../images/icons/favicon-32x32.png">
+  <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||"red-graphite")}catch(e){}</script>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github-dark.min.css">
+</head>
+<body>
+  <div class="topbar">
+    <span class="tb-name"><span class="mark">❡</span> Lavkush</span>
+  </div>
+
+  <div class="layout">
+    <main>
+      <article>
+        <h1 id="post-title">Loading…</h1>
+        <div id="post-body"></div>
+      </article>
+      <div class="page-foot">© <span id="yr"></span> Lavkush Gupta</div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11/lib/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      var darkThemes = ["charcoal", "solarized-dark", "dracula", "gotham"];
+      var t = document.documentElement.getAttribute("data-theme") || "";
+      mermaid.initialize({ startOnLoad: false, securityLevel: "loose",
+        theme: darkThemes.indexOf(t) !== -1 ? "dark" : "neutral" });
+    }
+  </script>
+  <script>
+    document.getElementById("yr").textContent = new Date().getFullYear();
+
+    var titleEl = document.getElementById("post-title");
+    var bodyEl = document.getElementById("post-body");
+
+    fetch("V2-ML-Fundamentals.md", { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("missing"); return r.text(); })
+      .then(function (md) {
+        titleEl.textContent = "Q&A — ML Fundamentals";
+        bodyEl.innerHTML = window.marked ? marked.parse(md) : "<pre>" + md + "</pre>";
+
+        // Mermaid: convert ```mermaid fences into rendered diagrams
+        if (window.mermaid) {
+          bodyEl.querySelectorAll("pre code.language-mermaid").forEach(function (block) {
+            var div = document.createElement("div");
+            div.className = "mermaid";
+            div.textContent = block.textContent;
+            block.parentElement.replaceWith(div);
+          });
+          try { mermaid.run({ querySelector: ".mermaid" }); } catch (e) {}
+        }
+        // Syntax highlighting
+        if (window.hljs) {
+          bodyEl.querySelectorAll("pre code").forEach(function (block) {
+            if (block.classList.contains("language-mermaid")) return;
+            try { hljs.highlightElement(block); } catch (e) {}
+          });
+        }
+      })
+      .catch(function () {
+        titleEl.textContent = "Not found";
+        bodyEl.innerHTML = "<p>Could not load this page.</p>";
+      });
+  </script>
+</body>
+</html>
