@@ -1,0 +1,12 @@
+[
+  {
+    "file": "V2-ML-Fundamentals.md",
+    "title": "Volume 2 — Machine Learning Fundamentals",
+    "summary": "The questions that filter Senior ML Engineer candidates: regression, bias–variance, regularization, trees, and more — answered in practitioner voice."
+  },
+  {
+    "file": "V3-Deep-Learning.md",
+    "title": "Volume 3 — Deep Learning (150 questions)",
+    "summary": "Rapid-fire deep learning: neural net foundations, training dynamics, CNNs, detection/segmentation, transformers, and edge deployment."
+  }
+]

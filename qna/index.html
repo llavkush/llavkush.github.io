@@ -9,7 +9,15 @@
   <link rel="alternate icon" type="image/png" href="../images/icons/favicon-32x32.png">
   <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||"red-graphite")}catch(e){}</script>
   <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github-dark.min.css">
+  <style>
+    .qna-list { list-style: none; padding: 0; margin: 1.5em 0; }
+    .qna-card { display: block; padding: 1.1em 1.3em; margin-bottom: 1em;
+      border: 1px solid var(--border, #ddd); border-radius: 10px;
+      text-decoration: none; color: inherit; transition: border-color .15s, transform .15s; }
+    .qna-card:hover { border-color: var(--accent, #b23); transform: translateY(-1px); }
+    .qna-card h3 { margin: 0 0 .35em; }
+    .qna-card p { margin: 0; opacity: .75; font-size: .92em; }
+  </style>
 </head>
 <body>
   <div class="topbar">
@@ -19,58 +27,28 @@
   <div class="layout">
     <main>
       <article>
-        <h1 id="post-title">Loading…</h1>
-        <div id="post-body"></div>
+        <h1>Q&amp;A</h1>
+        <p style="opacity:.7">Private interview-prep volumes. Unlisted — not linked from the blog.</p>
+        <ul class="qna-list" id="qna-list"><li>Loading…</li></ul>
       </article>
       <div class="page-foot">© <span id="yr"></span> Lavkush Gupta</div>
     </main>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11/lib/highlight.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-  <script>
-    if (window.mermaid) {
-      var darkThemes = ["charcoal", "solarized-dark", "dracula", "gotham"];
-      var t = document.documentElement.getAttribute("data-theme") || "";
-      mermaid.initialize({ startOnLoad: false, securityLevel: "loose",
-        theme: darkThemes.indexOf(t) !== -1 ? "dark" : "neutral" });
-    }
-  </script>
   <script>
     document.getElementById("yr").textContent = new Date().getFullYear();
-
-    var titleEl = document.getElementById("post-title");
-    var bodyEl = document.getElementById("post-body");
-
-    fetch("V2-ML-Fundamentals.md", { cache: "no-store" })
-      .then(function (r) { if (!r.ok) throw new Error("missing"); return r.text(); })
-      .then(function (md) {
-        titleEl.textContent = "Q&A — ML Fundamentals";
-        bodyEl.innerHTML = window.marked ? marked.parse(md) : "<pre>" + md + "</pre>";
-
-        // Mermaid: convert ```mermaid fences into rendered diagrams
-        if (window.mermaid) {
-          bodyEl.querySelectorAll("pre code.language-mermaid").forEach(function (block) {
-            var div = document.createElement("div");
-            div.className = "mermaid";
-            div.textContent = block.textContent;
-            block.parentElement.replaceWith(div);
-          });
-          try { mermaid.run({ querySelector: ".mermaid" }); } catch (e) {}
-        }
-        // Syntax highlighting
-        if (window.hljs) {
-          bodyEl.querySelectorAll("pre code").forEach(function (block) {
-            if (block.classList.contains("language-mermaid")) return;
-            try { hljs.highlightElement(block); } catch (e) {}
-          });
-        }
+    var listEl = document.getElementById("qna-list");
+    fetch("posts.json", { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("missing"); return r.json(); })
+      .then(function (posts) {
+        listEl.innerHTML = posts.map(function (p) {
+          return '<li><a class="qna-card" href="post.html?p=' + encodeURIComponent(p.file) + '">' +
+            '<h3>' + p.title + '</h3>' +
+            (p.summary ? '<p>' + p.summary + '</p>' : '') +
+            '</a></li>';
+        }).join("");
       })
-      .catch(function () {
-        titleEl.textContent = "Not found";
-        bodyEl.innerHTML = "<p>Could not load this page.</p>";
-      });
+      .catch(function () { listEl.innerHTML = "<li>Could not load the list.</li>"; });
   </script>
 </body>
 </html>
