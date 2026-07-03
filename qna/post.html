@@ -14,16 +14,41 @@
     html { scroll-behavior: smooth; }
     .qna-layout { display: grid; grid-template-columns: 260px 1fr; gap: 2em; align-items: start; }
     .qna-toc { position: sticky; top: 1em; max-height: calc(100vh - 2em); overflow-y: auto;
-      font-size: .88em; padding-right: .5em; border-right: 1px solid var(--border, #ddd); }
-    .qna-toc a { display: block; padding: .2em 0; text-decoration: none; color: inherit; opacity: .8; }
-    .qna-toc a:hover { opacity: 1; color: var(--accent, #b23); }
-    .qna-toc a.tsec { font-weight: 600; margin-top: .8em; opacity: 1; }
-    /* offset anchor jumps so headings aren't hidden under the topbar */
-    :target { scroll-margin-top: 1.2em; }
+      font-size: .86em; padding-right: .6em; border-right: 1px solid var(--border); }
+    .qna-toc a { display: block; padding: .22em .1em; text-decoration: none; color: var(--text);
+      opacity: .78; border-radius: 5px; }
+    .qna-toc a:hover { opacity: 1; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 9%, transparent); }
+    .qna-toc a.tsec { font-weight: 700; margin-top: .9em; opacity: 1; }
+
+    .qna-tools { display: flex; gap: .5em; margin: 1em 0 1.5em; flex-wrap: wrap; }
+    .qna-tools input { flex: 1; min-width: 160px; padding: .5em .7em;
+      border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2);
+      color: var(--text); font: inherit; }
+    .qna-tools button { padding: .5em .9em; border: 1px solid var(--border); border-radius: 8px;
+      background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+    .qna-tools button:hover { border-color: var(--accent); color: var(--accent); }
+
+    details.qa { border: 1px solid var(--border); border-radius: 10px; margin-bottom: .7em;
+      background: var(--surface-2); overflow: hidden; }
+    details.qa > summary { list-style: none; cursor: pointer; padding: .85em 1.1em;
+      font-weight: 650; display: flex; gap: .6em; align-items: baseline;
+      transition: background .12s; }
+    details.qa > summary::-webkit-details-marker { display: none; }
+    details.qa > summary::before { content: "▸"; color: var(--accent); flex: none;
+      transition: transform .15s; }
+    details.qa[open] > summary::before { transform: rotate(90deg); }
+    details.qa > summary:hover { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+    details.qa[open] > summary { border-bottom: 1px solid var(--border); }
+    .qa-num { color: var(--muted); font-variant-numeric: tabular-nums; flex: none; }
+    .qa-body { padding: .3em 1.3em 1.1em; }
+    .qa-body > h1:first-child, .qa-body > h2:first-child { margin-top: .4em; }
+    :target { scroll-margin-top: 1em; }
+
     @media (max-width: 820px) {
       .qna-layout { grid-template-columns: 1fr; }
-      .qna-toc { position: static; max-height: none; border-right: none;
-        border-bottom: 1px solid var(--border, #ddd); margin-bottom: 1.5em; padding-bottom: 1em; }
+      .qna-toc { position: static; max-height: 40vh; border-right: none;
+        border: 1px solid var(--border); border-radius: 8px; padding: .6em .8em; margin-bottom: 1.4em; }
     }
   </style>
 </head>
@@ -34,12 +59,18 @@
 
   <div class="layout">
     <main>
-      <p style="margin-bottom:1.2em"><a href="index.html">← All Q&amp;A volumes</a></p>
+      <p style="margin-bottom:1em"><a href="index.html">← All Q&amp;A volumes</a></p>
       <div class="qna-layout">
         <nav class="qna-toc" id="toc"></nav>
         <article>
           <h1 id="post-title">Loading…</h1>
-          <div id="post-body"></div>
+          <div id="intro"></div>
+          <div class="qna-tools" id="tools" style="display:none">
+            <input id="search" type="search" placeholder="Filter questions…" aria-label="Filter questions">
+            <button type="button" id="expand-all">Expand all</button>
+            <button type="button" id="collapse-all">Collapse all</button>
+          </div>
+          <div id="qa-list"></div>
         </article>
       </div>
       <div class="page-foot">© <span id="yr"></span> Lavkush Gupta</div>
@@ -47,7 +78,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11/lib/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11/highlight.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     if (window.mermaid) {
@@ -59,78 +90,176 @@
   </script>
   <script>
     document.getElementById("yr").textContent = new Date().getFullYear();
-
     var titleEl = document.getElementById("post-title");
-    var bodyEl = document.getElementById("post-body");
+    var introEl = document.getElementById("intro");
+    var listEl = document.getElementById("qa-list");
     var tocEl = document.getElementById("toc");
+    var toolsEl = document.getElementById("tools");
+
+    var slug = function (s) {
+      return s.toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-");
+    };
 
     var file = new URLSearchParams(location.search).get("p");
-    // only allow simple filenames in the same folder — no traversal
     if (!file || !/^[A-Za-z0-9._-]+\.md$/.test(file)) {
       titleEl.textContent = "Not found";
-      bodyEl.innerHTML = "<p>Invalid or missing page.</p>";
+      introEl.innerHTML = "<p>Invalid or missing page.</p>";
     } else {
-      // give marked deterministic, slug-style heading ids we can link to
-      var slug = function (s) {
-        return s.toLowerCase().trim()
-          .replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-");
-      };
       fetch(file, { cache: "no-store" })
         .then(function (r) { if (!r.ok) throw new Error("missing"); return r.text(); })
-        .then(function (md) {
-          bodyEl.innerHTML = window.marked ? marked.parse(md) : "<pre>" + md + "</pre>";
-
-          // Assign ids to every heading, then build a TOC of the question headings.
-          var used = {};
-          var heads = bodyEl.querySelectorAll("h1, h2, h3, h4");
-          var tocItems = [];
-          heads.forEach(function (h) {
-            var text = h.textContent;
-            var id = slug(text) || "sec";
-            if (used[id]) { used[id]++; id = id + "-" + used[id]; } else { used[id] = 1; }
-            h.id = id;
-
-            // Section headers (Part / A. / letter groups) and questions go in the TOC.
-            if (/^Q\d+[\.\:]/.test(text)) {
-              tocItems.push({ id: id, text: text, sec: false });
-            } else if (/^(Part\b|[A-G]\.)/.test(text) || (h.tagName === "H1" && tocItems.length)) {
-              tocItems.push({ id: id, text: text, sec: true });
-            }
-          });
-
-          // page title = first H1
-          var h1 = bodyEl.querySelector("h1");
-          titleEl.textContent = h1 ? h1.textContent : "Q&A";
-          if (h1) h1.remove();
-          document.title = titleEl.textContent + " · Lavkush";
-
-          tocEl.innerHTML = tocItems.map(function (it) {
-            return '<a class="' + (it.sec ? "tsec" : "") + '" href="#' + it.id + '">' +
-              it.text + "</a>";
-          }).join("");
-
-          // Mermaid diagrams
-          if (window.mermaid) {
-            bodyEl.querySelectorAll("pre code.language-mermaid").forEach(function (block) {
-              var div = document.createElement("div");
-              div.className = "mermaid";
-              div.textContent = block.textContent;
-              block.parentElement.replaceWith(div);
-            });
-            try { mermaid.run({ querySelector: ".mermaid" }); } catch (e) {}
-          }
-          // Syntax highlighting
-          if (window.hljs) {
-            bodyEl.querySelectorAll("pre code").forEach(function (block) {
-              if (block.classList.contains("language-mermaid")) return;
-              try { hljs.highlightElement(block); } catch (e) {}
-            });
-          }
-        })
+        .then(function (md) { build(md); })
         .catch(function () {
           titleEl.textContent = "Not found";
-          bodyEl.innerHTML = "<p>Could not load this page.</p>";
+          introEl.innerHTML = "<p>Could not load this page.</p>";
         });
+    }
+
+    function render(mdChunk) {
+      return window.marked ? marked.parse(mdChunk) : "<pre>" + mdChunk + "</pre>";
+    }
+
+    function enhance(scope) {
+      if (window.mermaid) {
+        scope.querySelectorAll("pre code.language-mermaid").forEach(function (block) {
+          var div = document.createElement("div"); div.className = "mermaid";
+          div.textContent = block.textContent; block.parentElement.replaceWith(div);
+        });
+        try { mermaid.run({ querySelector: ".mermaid" }); } catch (e) {}
+      }
+      if (window.hljs) {
+        scope.querySelectorAll("pre code").forEach(function (block) {
+          if (block.classList.contains("language-mermaid")) return;
+          try { hljs.highlightElement(block); } catch (e) {}
+        });
+      }
+    }
+
+    function build(md) {
+      var lines = md.split(/\r?\n/);
+      // A "question" heading = any level heading whose text starts with Q<number>.
+      var qHead = /^(#{1,6})\s+(Q\d+[\.\:].*)$/;
+      // A "section" heading = Part ... or "A." / "B." group, or the top H1 title.
+      var secHead = /^(#{1,6})\s+((?:Part\b|[A-G]\.).*)$/;
+
+      var intro = [];        // lines before the first question
+      var blocks = [];       // { title, num, body:[lines], id }
+      var toc = [];          // { id, text, sec }
+      var cur = null;
+      var seenQ = false;
+      var used = {};
+      var mkId = function (text) {
+        var id = slug(text) || "sec";
+        if (used[id]) { used[id]++; id = id + "-" + used[id]; } else { used[id] = 1; }
+        return id;
+      };
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var mQ = line.match(qHead);
+        if (mQ) {
+          seenQ = true;
+          var qtext = mQ[2].trim();
+          var id = mkId(qtext);
+          cur = { title: qtext, id: id, body: [] };
+          blocks.push(cur);
+          toc.push({ id: id, text: qtext, sec: false });
+          continue;
+        }
+        if (!seenQ) {
+          // still in the intro region — but capture section headers for the TOC too
+          intro.push(line);
+          continue;
+        }
+        var mS = line.match(secHead);
+        if (mS && cur === null) { /* unreachable */ }
+        // section header that appears between questions -> its own TOC entry + banner
+        if (mS && line.match(qHead) === null && !mQ) {
+          var stext = mS[2].trim();
+          var sid = mkId(stext);
+          toc.push({ id: sid, text: stext, sec: true });
+          blocks.push({ section: true, title: stext, id: sid });
+          cur = null;
+          continue;
+        }
+        if (cur) cur.body.push(line);
+      }
+
+      // ---- title: first H1 in the intro ----
+      var titleText = "Q&A";
+      var introText = intro.join("\n");
+      var h1m = introText.match(/^#\s+(.+)$/m);
+      if (h1m) {
+        titleText = h1m[1].trim();
+        introText = introText.replace(/^#\s+.+$/m, "");   // drop it; shown in <h1>
+      }
+      titleEl.textContent = titleText;
+      document.title = titleText + " · Lavkush";
+
+      // Drop the old in-file "Table of Contents" block from the intro (we build our own).
+      introText = introText.replace(/##\s*Table of Contents[\s\S]*?(?=\n#|\n---|\s*$)/i, "");
+      introEl.innerHTML = render(introText.trim());
+      enhance(introEl);
+
+      // ---- render blocks ----
+      var html = "";
+      blocks.forEach(function (b) {
+        if (b.section) {
+          html += '<h2 id="' + b.id + '" class="qa-section">' + b.title + "</h2>";
+          return;
+        }
+        var numMatch = b.title.match(/^Q(\d+)/);
+        var num = numMatch ? numMatch[1] : "";
+        var rest = b.title.replace(/^Q\d+[\.\:]\s*/, "");
+        html += '<details class="qa" id="' + b.id + '">' +
+          '<summary><span class="qa-num">Q' + num + '</span><span>' + escapeHtml(rest) + "</span></summary>" +
+          '<div class="qa-body">' + render(b.body.join("\n")) + "</div>" +
+          "</details>";
+      });
+      listEl.innerHTML = html;
+      enhance(listEl);
+      toolsEl.style.display = "flex";
+
+      // ---- TOC ----
+      tocEl.innerHTML = toc.map(function (it) {
+        return '<a class="' + (it.sec ? "tsec" : "") + '" href="#' + it.id + '">' +
+          escapeHtml(it.text) + "</a>";
+      }).join("");
+
+      // Clicking a TOC question opens its accordion, then scrolls.
+      tocEl.addEventListener("click", function (e) {
+        var a = e.target.closest("a"); if (!a) return;
+        var id = decodeURIComponent(a.getAttribute("href").slice(1));
+        var el = document.getElementById(id);
+        if (el && el.tagName === "DETAILS") el.open = true;
+      });
+      // Deep link (#qN...) on load: open + scroll.
+      if (location.hash) {
+        var el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (el && el.tagName === "DETAILS") { el.open = true; el.scrollIntoView(); }
+      }
+
+      wireTools();
+    }
+
+    function wireTools() {
+      var all = Array.prototype.slice.call(listEl.querySelectorAll("details.qa"));
+      document.getElementById("expand-all").onclick = function () { all.forEach(function (d) { d.open = true; }); };
+      document.getElementById("collapse-all").onclick = function () { all.forEach(function (d) { d.open = false; }); };
+      var search = document.getElementById("search");
+      search.oninput = function () {
+        var q = search.value.toLowerCase().trim();
+        all.forEach(function (d) {
+          var hit = !q || d.textContent.toLowerCase().indexOf(q) !== -1;
+          d.style.display = hit ? "" : "none";
+          if (q && hit) d.open = true;
+        });
+      };
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
     }
   </script>
 </body>
