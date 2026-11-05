@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script defer src="scripts/analytics.js"></script>
   <title>About · Lavkush Gupta</title>
-  <meta name="description" content="Lavkush Gupta — Senior AI Engineer. Experience, selected work, skills, achievements, certifications and education.">
+  <meta name="description" content="Lavkush Gupta — Machine Learning Engineer. Production LLM/RAG, computer vision and MLOps at Khetika. Experience, skills, patent, awards, education.">
   <link rel="icon" type="image/svg+xml" href="images/icons/favicon.svg">
   <link rel="alternate icon" type="image/png" href="images/icons/favicon-32x32.png">
   <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||"red-graphite")}catch(e){}</script>
@@ -23,13 +23,21 @@
     <main>
       <h1>About</h1>
       <p>
-        I'm a <strong>Senior AI Engineer</strong> with 4+ years building production
-        LLM, computer-vision and ML/DL systems that replace manual operations. At
-        Khetika I shipped three 0→1 products used by 100+ staff across 2000+ SKUs —
-        cutting reporting time 80% and automating quality control on edge hardware.
-        I specialize in RAG, agents, and high-FPS computer vision on Jetson, and I
-        care about the whole arc: from annotation and training to deployment, APIs
-        and the MLOps that keeps it running. Based in Mumbai, India.
+        100+ users. 2000+ SKUs. 7 warehouses. One traceability ledger that has to be
+        right, because it answers "where did this come from?" for a food supply chain.
+      </p>
+      <p>
+        I'm the <strong>Machine Learning Engineer</strong> who built it. Over 4+ years at
+        Khetika I shipped three 0→1 production ML products: SuperTRACE (LLM + RAG platform,
+        120+ hours/month of reporting removed), SuperGRT (patented grain-quality vision at
+        26 FPS on a Jetson) and SuperHR (tool-calling agent, HR tickets down 70%).
+        I own the full ML lifecycle: data and feature pipelines, training, fine-tuning,
+        evaluation, deployment, and the monitoring that keeps models alive in production.
+      </p>
+      <p>
+        I came to ML from physics. Two master's degrees (Physics, then Computer Science)
+        taught me to distrust a metric until I know what it was measured against.
+        That is still how I evaluate models. Based in Mumbai, India · open to remote roles.
       </p>
 
       <div class="btn-row">
@@ -44,30 +52,28 @@
       <h2>Experience</h2>
 
       <div class="entry">
-        <h3>Machine Learning Engineer — Khetika (SuperZop)</h3>
-        <div class="where">Feb 2023 – Present · Mumbai</div>
+        <h3>Senior AI Engineer — Khetika (SuperZop)</h3>
+        <div class="where">Apr 2026 – Present · Mumbai · promoted from Machine Learning Engineer (Feb 2023 – Apr 2026)</div>
       </div>
 
       <div class="work">
         <div class="kicker">LLM Supply-Chain Platform · Lead</div>
         <h3>SuperTRACE</h3>
         <ul>
-          <li>Architected an NL→SQL agent with schema-grounding and query validation — eliminating 120+ hours/month of manual reporting.</li>
-          <li>Adopted by 100+ users across warehouse, finance and ops for 2000+ SKUs; cut data-entry errors from 5–10/day to under 2/week.</li>
-          <li>Deployed on a GCP VM with Express.js backend APIs and a Next.js frontend for warehouse, finance and operations teams.</li>
+          <li>Built and operate an LLM + RAG platform for natural-language querying of structured inventory data across 7 warehouses and 2000+ SKUs, adopted by 100+ users in warehouse, finance and ops — removing 120+ hours/month of manual reporting.</li>
+          <li>Designed the NL→SQL agentic workflow with schema-grounding, query validation and evaluation on real user questions, cutting data-entry errors from 5–10/day to under 2/week.</li>
+          <li>Deployed and monitor the system on GCP (PostgreSQL, Express.js APIs, Next.js) — FICCI Best Tech-Diffused Agri Startup Award, 2025.</li>
         </ul>
         <div class="stack">JavaScript · Gemini · PostgreSQL · GCP · Next.js · Express.js</div>
       </div>
 
       <div class="work">
-        <div class="kicker">Grain-Quality CV System · Lead · Patent Filed</div>
+        <div class="kicker">Grain-Quality CV System · Lead · Patent Granted</div>
         <h3>SuperGRT</h3>
         <ul>
-          <li>Owned the full ML lifecycle — annotation, training, re-training and deployment — for inference across grains, sugar, makhana, dry fruits and spices.</li>
-          <li>Built the full pipeline: classification models for grain type, deep-learning segmentation for defect detection, and colorcard-based color grading for quality analysis.</li>
-          <li>Shipped APIs and backend for an Android inward-QC app: staff capture one photo → cloud preprocessing → ML inference → QC grade + defect breakdown returned in ~15s.</li>
-          <li>Replaced manual QC with a Jetson Nano system running YOLOv8-Seg + TensorRT at 26 FPS — grading 200–300 grains/sample in 15s versus one or two by hand.</li>
-          <li>Standardized quality checks across 7 warehouses; trained on 15k custom images. Patent filed with the Indian Patent Office.</li>
+          <li>Led the full ML lifecycle (annotation of 15k custom images, training, evaluation, re-training, deployment) for grain-type classification, defect segmentation and colorcard grading across grains, sugar, makhana, dry fruits and spices — standardizing QC across 7 warehouses. Patent granted, Indian Patent Office.</li>
+          <li>Replaced manual QC with a Jetson Nano running YOLOv8-Seg + TensorRT at 26 FPS — grading 200–300 grains per sample in ~15s versus one or two by hand.</li>
+          <li>Shipped inference APIs and backend for an Android inward-QC app: one photo → cloud preprocessing → model inference → QC grade and defect breakdown in ~15s.</li>
         </ul>
         <div class="stack">Python · PyTorch · ONNX · TensorRT · MLflow · NVIDIA DeepStream SDK · YOLOv5/8 · Azure AI Studio · GitLab</div>
       </div>
@@ -76,8 +82,8 @@
         <div class="kicker">LLM HR Automation</div>
         <h3>SuperHR</h3>
         <ul>
-          <li>Reduced HR ticket volume 70% with a chatbot + tool-calling agent for leave, payroll and policy over MySQL.</li>
-          <li>Built human approval loops for all database writes.</li>
+          <li>Cut HR ticket volume 70% with a tool-calling agentic workflow for leave, payroll and policy over MySQL, with a human approval loop on every database write.</li>
+          <li>Built a goal-management module where an LLM drafts SMART goals and review summaries from KPIs for managers and HR.</li>
         </ul>
         <div class="stack">JavaScript · OpenAI API · PostgreSQL · Fastify 5 · Next.js · Drizzle ORM</div>
       </div>
@@ -86,10 +92,9 @@
         <div class="kicker">MLOps &amp; Platform</div>
         <h3>Infrastructure &amp; analytics</h3>
         <ul>
-          <li>Cut model deployment time 60% and training cost 40% via Docker + MLflow + CI/CD on GCP.</li>
-          <li>Shipped Power BI dashboards that cut ops reporting turnaround 80%.</li>
-          <li>Built ML models for pricing, defect scoring and inventory prediction.</li>
-          <li>Built a dashboard to manage D2C orders across Flipkart, Amazon and CRED via API integration, with sync across order, inventory and fulfillment data.</li>
+          <li>Cut model deployment time 60% and training cost 40% with Docker + MLflow + CI/CD pipelines on GCP, with model versioning and monitoring.</li>
+          <li>Built production ML models (scikit-learn, pandas, SQL) for pricing, defect scoring and inventory prediction, and Power BI dashboards that cut ops reporting turnaround 80%.</li>
+          <li>Built a D2C order dashboard syncing orders, inventory and fulfillment across Flipkart, Amazon and CRED via API integration.</li>
         </ul>
         <div class="stack">JavaScript · Next.js · Express.js · PostgreSQL · GCP · Azure AI Studio · GitLab</div>
       </div>
@@ -98,7 +103,7 @@
         <h3>Data Science / Technology Intern — Khetika (SuperZop)</h3>
         <div class="where">Jul 2022 – Jan 2023 · Mumbai</div>
         <ul>
-          <li>Built a color + perspective correction module for warehouse phone images — improving downstream YOLO mAP ~5% and enabling the SuperGRT pilot.</li>
+          <li>Built a color + perspective correction module for warehouse phone images — improving downstream YOLO mAP ~5% and enabling the SuperGRT pilot (the basis of the granted patent).</li>
           <li>Wrote an image-QA service to auto-reject blurry/dark uploads, reducing bad data 90%.</li>
         </ul>
       </div>
@@ -107,7 +112,7 @@
         <h3>Deep Learning Intern — Helppr.ai</h3>
         <div class="where">Sep 2021 – Nov 2021 · Gurgaon, India</div>
         <ul>
-          <li>Fine-tuned DistilBERT for 11-label UPSC subject classification — 95–98% accuracy, an 18% lift over baseline.</li>
+          <li>Fine-tuned DistilBERT for 11-label UPSC subject classification — 95–98% accuracy, an 18% lift over the baseline, evaluated on a held-out set.</li>
         </ul>
       </div>
 
@@ -116,10 +121,10 @@
       <h2>Skills</h2>
       <div class="skills-grid">
         <div class="skill"><h3>Languages</h3><p>Python, SQL, JavaScript (for prototyping).</p></div>
-        <div class="skill"><h3>LLM &amp; Agents</h3><p>LangChain, OpenAI/Gemini APIs, vector DBs, RAG, NL→SQL. Shipped SuperTRACE + SuperHR to 100+ users with SQL guardrails and tool-calling.</p></div>
+        <div class="skill"><h3>LLM, RAG &amp; Agentic Workflows</h3><p>LangChain, OpenAI/Gemini APIs, vector DBs, RAG, NL→SQL / Text2SQL, tool-calling agents, prompt engineering, fine-tuning (DistilBERT), LLM evaluation (query validation, grounding checks). Shipped SuperTRACE + SuperHR to 100+ users.</p></div>
         <div class="skill"><h3>Computer Vision</h3><p>PyTorch, YOLOv8, Detectron2, ONNX, TensorRT, OpenCV, DeepStream. Deployed SuperGRT on Jetson Nano @ 26 FPS; built SRGAN for Helppr.ai.</p></div>
-        <div class="skill"><h3>MLOps &amp; Backend</h3><p>Docker, MLflow, FastAPI, Flask, Streamlit, GitHub Actions, Kubernetes. Cut deploy time 60%, training cost 40%; built APIs serving CV/LLM models.</p></div>
-        <div class="skill"><h3>Data &amp; Cloud</h3><p>PostgreSQL, MySQL, MongoDB, GCP, Azure VM, Azure Blob. Managed infra for traceability + real-time inference; wrote ETL pipelines.</p></div>
+        <div class="skill"><h3>MLOps &amp; Backend</h3><p>Docker, MLflow, FastAPI, Flask, Streamlit, GitHub Actions, Kubernetes, model versioning and monitoring. Cut deploy time 60%, training cost 40%; built APIs serving CV/LLM models in production.</p></div>
+        <div class="skill"><h3>Data &amp; Cloud</h3><p>SQL, PostgreSQL, MySQL, MongoDB, GCP, Azure VM, Azure Blob. Built data and feature pipelines for traceability + real-time inference; wrote ETL pipelines.</p></div>
         <div class="skill"><h3>ML &amp; Analytics</h3><p>Scikit-learn, Pandas, NumPy, regression, hypothesis testing. Built pricing, defect-scoring and inventory-prediction models; Power BI dashboards.</p></div>
         <div class="skill"><h3>Other</h3><p>Selenium, BeautifulSoup, Next.js. Built scrapers + internal UIs; fine-tuned DistilBERT for UPSC classification at 96% avg accuracy.</p></div>
       </div>
@@ -128,7 +133,7 @@
 
       <h2>Achievements</h2>
       <ul>
-        <li><strong>Patent filed</strong> — SuperGRT Grain Recognition Technology (Indian Patent Office).</li>
+        <li><strong>Patent granted</strong> — SuperGRT Grain Recognition Technology (Indian Patent Office).</li>
         <li><strong>FICCI Best Tech-Diffused Agri Startup Award (2025)</strong> — SuperTRACE.</li>
         <li><strong>Winner</strong> — Internal AI Automation Hackathon (SuperTRACE); <strong>Runner-up</strong> (SuperHR).</li>
       </ul>
@@ -161,9 +166,9 @@
 
       <h2>Get in touch</h2>
       <p>
-        Building something where this fits? Email
-        <a href="mailto:lavkushsg@gmail.com">lavkushsg@gmail.com</a>,
-        or find me on
+        Hiring a Machine Learning Engineer for production LLM/RAG work, remote from India?
+        Email <a href="mailto:lavkushsg@gmail.com">lavkushsg@gmail.com</a> with the problem
+        you are trying to solve, or find me on
         <a href="https://www.linkedin.com/in/lavkushsg" target="_blank" rel="noopener">LinkedIn</a>
         and <a href="https://github.com/llavkush" target="_blank" rel="noopener">GitHub</a>.
       </p>

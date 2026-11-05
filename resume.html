@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script defer src="scripts/analytics.js"></script>
   <title>Lavkush Gupta: Résumé</title>
-  <meta name="description" content="Résumé of Lavkush Gupta, Senior AI Engineer. LLM agents, computer vision and MLOps.">
+  <meta name="description" content="Résumé of Lavkush Gupta, Machine Learning Engineer. Production LLM/RAG, computer vision and MLOps.">
   <link rel="icon" type="image/svg+xml" href="images/icons/favicon.svg">
   <!-- Embed Inter so the résumé renders with the exact same font on screen
        AND in the printed/Saved-as-PDF output, on any machine or browser. -->
@@ -125,7 +125,7 @@
   <div class="sheet" id="sheet">
     <header>
       <h1 class="name">Lavkush Gupta</h1>
-      <p class="role">Senior AI Engineer · LLM Agents · Computer Vision · Deep Learning</p>
+      <p class="role">Machine Learning Engineer · LLM / RAG · Computer Vision · MLOps</p>
       <div class="contact">
         <a href="mailto:lavkushsg@gmail.com">lavkushsg@gmail.com</a><span class="sep">•</span>
         <span>Mumbai, India</span><span class="sep">•</span>
@@ -138,12 +138,12 @@
     <section>
       <h2>Summary</h2>
       <p class="summary">
-        Senior AI Engineer with 4+ years building production LLM, computer-vision and ML/DL
-        systems that replace manual operations. At Khetika, shipped three 0-to-1 products used by
-        100+ staff across 2000+ SKUs, cutting reporting time 80% and automating quality control
-        on edge hardware. Specialized in RAG, agents and high-FPS computer vision on Jetson, with
-        ownership across the full arc: annotation, training, deployment, APIs and the MLOps that
-        keeps it running. <b>Patent granted</b> · <b>FICCI Award 2025</b>.
+        Machine Learning Engineer with 4+ years shipping production LLM/RAG, computer-vision and
+        ML systems at Khetika: three 0-to-1 products used by 100+ staff across 2000+ SKUs and
+        7 warehouses, removing 120+ hours/month of manual reporting and automating quality control
+        on edge hardware at 26 FPS. Owns the full ML lifecycle: data and feature pipelines, training,
+        fine-tuning, evaluation, deployment and monitoring (Python, PyTorch, SQL, GCP).
+        <b>Patent granted</b> · <b>FICCI Award 2025</b> · M.Sc. CS + M.Sc. Physics · open to remote.
       </p>
     </section>
 
@@ -155,14 +155,14 @@
           <p class="job-title">Senior AI Engineer · <span class="job-co">Khetika (SuperZop)</span></p>
           <span class="job-date">Feb 2023 – Present · Mumbai</span>
         </div>
-        <p class="skill-row" style="margin:2px 0 4px; color:var(--muted)">Promoted from Machine Learning Engineer; led three production AI products end-to-end.</p>
+        <p class="skill-row" style="margin:2px 0 4px; color:var(--muted)">Machine Learning Engineer Feb 2023 – Apr 2026, promoted to Senior AI Engineer Apr 2026; led three production ML products end-to-end.</p>
 
         <div class="proj">
           <span class="proj-name">SuperTRACE</span>: <span class="proj-tag">LLM Supply-Chain Platform · Lead · FICCI Award 2025</span>
           <ul>
-            <li>Architected an NL-to-SQL agent with schema-grounding and query validation, eliminating 120+ hours/month of manual reporting.</li>
-            <li>Adopted by 100+ users across warehouse, finance and ops for 2000+ SKUs; cut data-entry errors from 5–10/day to under 2/week.</li>
-            <li>Deployed on a GCP VM with an Express.js backend and Next.js frontend.</li>
+            <li>Built and operate an LLM + RAG platform for natural-language querying of structured inventory data across 7 warehouses and 2000+ SKUs, adopted by 100+ users, removing 120+ hours/month of manual reporting.</li>
+            <li>Designed the NL-to-SQL agentic workflow with schema-grounding, query validation and evaluation on real user questions, cutting data-entry errors from 5–10/day to under 2/week.</li>
+            <li>Deployed and monitor the system on GCP (PostgreSQL, Express.js APIs, Next.js frontend).</li>
           </ul>
           <div class="stack">JavaScript · Gemini · PostgreSQL · GCP · Next.js · Express.js</div>
         </div>
@@ -170,10 +170,9 @@
         <div class="proj">
           <span class="proj-name">SuperGRT</span>: <span class="proj-tag">Grain-Quality CV System · Lead · Patent Granted</span>
           <ul>
-            <li>Owned the full ML lifecycle (annotation, training, re-training and deployment) across grains, sugar, makhana, dry fruits and spices.</li>
-            <li>Built classification for grain type, deep-learning segmentation for defect detection, and colorcard-based color grading for quality analysis.</li>
+            <li>Led the full ML lifecycle (annotation of 15k custom images, training, evaluation, re-training, deployment) for grain-type classification, defect segmentation and colorcard grading, standardizing QC across 7 warehouses. Patent granted by the Indian Patent Office.</li>
             <li>Replaced manual QC with a Jetson Nano running YOLOv8-Seg + TensorRT at 26 FPS, grading 200–300 grains/sample in ~15s vs. one or two by hand.</li>
-            <li>Shipped APIs + backend for an Android inward-QC app (photo to cloud preprocessing to inference to grade in ~15s); standardized QC across 7 warehouses, trained on 15k custom images. Patent granted by the Indian Patent Office.</li>
+            <li>Shipped inference APIs + backend for an Android inward-QC app: photo to cloud preprocessing to model inference to QC grade in ~15s.</li>
           </ul>
           <div class="stack">Python · PyTorch · ONNX · TensorRT · MLflow · NVIDIA DeepStream · YOLOv5/8 · Azure AI Studio</div>
         </div>
@@ -181,7 +180,7 @@
         <div class="proj">
           <span class="proj-name">SuperHR</span>: <span class="proj-tag">LLM HR Automation</span>
           <ul>
-            <li>Cut HR ticket volume 70% with a chatbot + tool-calling agent for leave, payroll and policy over MySQL, with human approval loops on all database writes.</li>
+            <li>Cut HR ticket volume 70% with a tool-calling agentic workflow for leave, payroll and policy over MySQL, with a human approval loop on every database write.</li>
             <li>Built a performance &amp; goal-management module where managers and HR set, assign and track team goals, where an LLM drafts SMART goals, reviews and feedback summaries from KPIs, surfacing progress to managers.</li>
           </ul>
           <div class="stack">JavaScript · OpenAI API · PostgreSQL · Fastify 5 · Next.js · Drizzle ORM</div>
@@ -190,8 +189,8 @@
         <div class="proj">
           <span class="proj-name">MLOps &amp; Platform</span>: <span class="proj-tag">Infrastructure &amp; Analytics</span>
           <ul>
-            <li>Cut model deployment time 60% and training cost 40% via Docker + MLflow + CI/CD on GCP.</li>
-            <li>Built ML models for pricing, defect scoring and inventory prediction; shipped Power BI dashboards that cut ops reporting turnaround 80%.</li>
+            <li>Cut model deployment time 60% and training cost 40% with Docker + MLflow + CI/CD pipelines on GCP, with model versioning and monitoring.</li>
+            <li>Built production ML models (scikit-learn, pandas, SQL) for pricing, defect scoring and inventory prediction; shipped Power BI dashboards that cut ops reporting turnaround 80%.</li>
             <li>Built a D2C dashboard syncing orders, inventory and fulfillment across Flipkart, Amazon and CRED via API integration.</li>
           </ul>
         </div>
@@ -222,10 +221,10 @@
     <section>
       <h2>Skills</h2>
       <p class="skill-row"><b>Languages:</b> Python, SQL, JavaScript</p>
-      <p class="skill-row"><b>LLM &amp; Agents:</b> LangChain, OpenAI API, Gemini API, RAG, NL-to-SQL, vector databases, tool-calling agents</p>
+      <p class="skill-row"><b>LLM, RAG &amp; Agents:</b> LangChain, OpenAI API, Gemini API, RAG, NL-to-SQL / Text2SQL, vector databases, tool-calling agentic workflows, prompt engineering, fine-tuning, LLM evaluation</p>
       <p class="skill-row"><b>Computer Vision:</b> PyTorch, YOLOv8, Detectron2, ONNX, TensorRT, OpenCV, NVIDIA DeepStream</p>
-      <p class="skill-row"><b>MLOps &amp; Backend:</b> Docker, MLflow, FastAPI, Flask, Streamlit, GitHub Actions, Kubernetes, Express.js, Fastify</p>
-      <p class="skill-row"><b>Data &amp; Cloud:</b> PostgreSQL, MySQL, MongoDB, GCP, Azure VM, Azure Blob</p>
+      <p class="skill-row"><b>MLOps &amp; Backend:</b> Docker, MLflow, model versioning &amp; monitoring, FastAPI, Flask, Streamlit, GitHub Actions, Kubernetes, Express.js, Fastify</p>
+      <p class="skill-row"><b>Data &amp; Cloud:</b> SQL, PostgreSQL, MySQL, MongoDB, data &amp; feature pipelines, GCP, Azure VM, Azure Blob</p>
       <p class="skill-row"><b>ML &amp; Analytics:</b> Scikit-learn, Pandas, NumPy, regression, hypothesis testing, Power BI</p>
     </section>
 
